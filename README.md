@@ -5,7 +5,6 @@ Hemma på Tuna* är en webbplattform designad för att förenkla administratione
 Syftet är också att förenkla vägen till att boka ridbanan vid träningar och tävlingar med en interaktiv kalender som tydligt visar bokade/obokade datum.
 Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan bygga upp detta och för att göra överblicken enklare.
 
-*
 *Namnet är inte satt i sten och kan komma att ändra*
 
 ---
@@ -63,4 +62,7 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - ReactRouterDom
 - Node.js
 
+---
+# AI - användning
+Tanken är att använda ingen till minimalt med AI i detta projekt för att fortsätta bygga kunskap på egenhand.
 
