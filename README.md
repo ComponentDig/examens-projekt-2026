@@ -20,7 +20,7 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - [ ] Hantera ett genereringsverktyg för stallschema
 - [ ] Hantera bokningar för ridbanan inför träningar och tävlingar
 - [ ] Hantera hur en besökare bokar ridbanan utan inloggning
-- [ ] Ha relevant information om stallet
+- [ ] Ha relevant information om stallet - så som vad som händer - tävling/träning - information till hästägare - spån, veterinär, hovslagare som kommer
 - [ ] Ha information till alla inackorderade hästägare
 
 ### En användare ska kunna:
