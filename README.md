@@ -13,6 +13,8 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 
 ---
 
+## Måste
+
 ### Applikationen ska:
 - [ ] Lagra data i en databas
 - [ ] Hantera 2 olika användarroller: admin, user
@@ -24,17 +26,9 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - [ ] Ha information till alla inackorderade hästägare
 
 ### En användare ska kunna:
-- [ ] Registrera sig/ logga in / logga ut / använda glömt lösenord
-- [ ] Redigera sina inloggningsuppgifter
+- [ ] Registrera sig/ logga in / logga ut 
 - [ ] Boka ridbanan
 - [ ] Kolla stallschema
-- [ ] Göra stallpassbyten med andra hästägare
-- [ ] Skicka meddelanden till andra hästägare
-- [ ] Kunna publiciera inlägg som syns för hästägare
-- [ ] Redigera inlägg
-- [ ] Ta bort inlägg som användaren har skrivit
-- [ ] Kommentera på inlägg
-- [ ] Gilla inlägg
 
 ### En besökare (utan inloggning) ska kunna:
 - [ ] Boka ridbanan
@@ -46,11 +40,23 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - [ ] Kunna lägga till hästägare för stallschema
 - [ ] Använda schemagenereraren för stalltjänst
 
-### Utmaningar:
-[] Ska publiceras på en publik webbbplats
-[] Påminnelser för olika insatser som hästägare behöver göra t.ex. täcke på/av
-[] Ägare ska kunna lägga in stam på sin häst
+## Bör
 
+### En användare ska kunna:
+- [ ] Använda ett formulär för glömt lösenord
+- [ ] Redigera sina inloggningsuppgifter
+- [ ] Göra stallpassbyten med andra hästägare
+- [ ] Skicka meddelanden till andra hästägare
+- [ ] Kunna publicera inlägg som syns för hästägare
+- [ ] Redigera inlägg
+- [ ] Ta bort inlägg som användaren har skrivit
+- [ ] Kommentera på inlägg
+- [ ] Gilla inlägg
+
+## Utmaning
+- [ ] Ska publiceras på en publik webbbplats
+- [ ] Påminnelser för olika insatser som hästägare behöver göra t.ex. täcke på/av
+- [ ] Ägare ska kunna lägga in stam på sin häst
 
 # Tekniker och programspråk
 - React
