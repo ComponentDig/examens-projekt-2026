@@ -24,14 +24,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         select: false,
-        minLenght: 4
+        minLength: 4
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
 });
 
 // hashing av password
 userSchema.pre('save', async function () {
     if (!this.isModified('password')) return next();
-    const salt = await bcrypt.hash(this.password, salt);
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 // comparing password when user logging in
