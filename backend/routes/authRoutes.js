@@ -5,8 +5,8 @@ import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // Public routes
-router.post('/registerUser', authController.registerUser);
-router.post('/loginUser', authController.loginUser);
+router.post('/register', authController.registerUser);
+router.post('/login', authController.loginUser);
 
 
 // Protected routes
