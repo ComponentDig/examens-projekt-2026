@@ -1,1 +1,14 @@
+/* import of tailwindcss */
 @import "tailwindcss";
+
+/* import of fonts */
+
+
+@theme {
+    /* Color vars */
+    --color-adminsidebar: #FF8400;
+    --color-admintext: #241200;
+
+
+    /* Font vars */
+}
