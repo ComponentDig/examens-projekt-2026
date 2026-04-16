@@ -1,14 +1,13 @@
 // imports of dependencies
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
+
+
 import authRoutes from "./routes/authRoutes.js";
-
-dotenv.config();
-
-// config of variables
-process.loadEnvFile();
 
 // express application
 const server = express();

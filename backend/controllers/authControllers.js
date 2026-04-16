@@ -1,15 +1,20 @@
 import User from "../models/userSchema.js";
-import user from "../models/userSchema.js";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '24h';
-
 const generateToken = (user) => {
+
+    const secret = process.env.JWT_SECRET;
+    const expiresIn = process.env.JWT_EXPIRES_IN || '24h';
+
+    if (!secret) {
+        throw new Error("Fel, JWT_SECRET");
+    }
+
+
     return jwt.sign(
         { id: user._id, email: user.email, role: user.role },
-        JWT_SECRET,
-        { expiresIn: JWT_EXPIRES_IN }
+        secret,
+        { expiresIn: expiresIn }
     );
 };
 
@@ -21,13 +26,13 @@ class authController {
             const { firstName, lastName, email, password } = req.body;
 
             // check if user already exists
-            const userExists = await user.findOne({ email });
+            const userExists = await User.findOne({ email });
             if (userExists) {
                 return res.status(400).json({ message: "Användare finns redan" });
             }
 
             // create user
-            const user = await user.create({
+            const newUser = await User.create({
                 firstName,
                 lastName,
                 email,
@@ -37,11 +42,11 @@ class authController {
             // send response
             res.status(201).json({
                 message: "Registrering lyckades",
-                token: generateToken(user),
+                token: generateToken(newUser),
                 user: {
-                    id: user._id,
-                    firstName: user.firstName,
-                    email: user.email
+                    id: newUser._id,
+                    firstName: newUser.firstName,
+                    email: newUser.email
                 }
             });
 
