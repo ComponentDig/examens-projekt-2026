@@ -23,7 +23,7 @@ class authController {
     // Register user
     static async registerUser(req, res) {
         try {
-            const { firstName, lastName, email, password } = req.body;
+            const { firstName, lastName, email, password, horses } = req.body;
 
             // check if user already exists
             const userExists = await User.findOne({ email });
@@ -36,7 +36,8 @@ class authController {
                 firstName,
                 lastName,
                 email,
-                password
+                password,
+                horses
             });
 
             // send response
