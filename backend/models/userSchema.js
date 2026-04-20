@@ -1,7 +1,6 @@
 // imports of dependencies
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import next from "next";
 
 
 // schema for users
@@ -30,14 +29,42 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
+    },
+    horses: {
+        type: Number,
+        default: 0,
+    },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
+    requiredTasks: {
+        type: Number,
+        default: 0,
     }
 });
 
-// hashing av password
-userSchema.pre('save', async function () {
+userSchema.pre('save', async function (next) {
+    // beräknar pass baserat på antal hästar
+    if (this.isModified('horses') || this.isNew) {
+        if (this.horses === 1) {
+            this.requiredTasks = 5;
+        } else if (this.horses >= 2) {
+            this.requiredTasks = 10;
+        } else {
+            this.requiredTasks = 0;
+        }
+    }
+    // Hashning av lösenord
     if (!this.isModified('password')) return next();
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (error) {
+        next(error);
+    }
 });
 
 // comparing password when user logging in
