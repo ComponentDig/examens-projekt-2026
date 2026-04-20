@@ -15,6 +15,8 @@ function App() {
       <Routes>
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
+
+        {/* protected routes ska in */}
         <Route path='/admin' element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
