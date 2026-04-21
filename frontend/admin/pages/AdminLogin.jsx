@@ -16,7 +16,7 @@ const AdminLogin = () => {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(email, password),
+                body: JSON.stringify({ email, password }),
             });
 
             const data = await response.json();
@@ -43,44 +43,44 @@ const AdminLogin = () => {
 
     return (
         <>
-        <div className="flex items-center justify-center min-h-screen px-4">
-            <form onSubmit={handleLogin} className="p-8 rounded shadow-xl w-full max-w-md">
-                <h2 className="text-3xl font-bold mb-6 text-center">Stall Admin</h2>
-                <p className="text-center mb-8 text-sm">Logga in för att hantera stallet</p>
+            <div className="flex items-center justify-center min-h-screen px-4">
+                <form onSubmit={handleLogin} className="p-8 rounded shadow-xl w-full max-w-md">
+                    <h2 className="text-3xl font-bold mb-6 text-center">Stall Admin</h2>
+                    <p className="text-center mb-8 text-sm">Logga in för att hantera stallet</p>
 
-                {error && (
-                    <div className="">
-                        {error}
+                    {error && (
+                        <div className="">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="space-y-4">
+                        <div>
+                            <label className="block text-xs uppercase mb-1 ml-1">E-post</label>
+                            <input
+                                type="email"
+                                required
+                                className="w-full p-3 rounded border outline-none"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-xs uppercase mb-1 ml-1">Lösenord</label>
+                            <input
+                                type="password"
+                                required
+                                className="w-full p-3 rounded border outline-none"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
                     </div>
-                )}
 
-                <div className="space-y-4">
-                    <div>
-                        <label className="block text-xs uppercase mb-1 ml-1">E-post</label>
-                        <input 
-                        type="email"
-                        required
-                        className="w-full p-3 rounded border outline-none"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-xs uppercase mb-1 ml-1">Lösenord</label>
-                        <input 
-                        type="password"
-                        required
-                        className="w-full p-3 rounded border outline-none"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                </div>
-
-                <button type="submit" className="w-full font-bold p-3 rounded mt-8">Logga in i kontrollpanelen</button>
-            </form>
-        </div>
+                    <button type="submit" className="w-full font-bold p-3 rounded mt-8">Logga in i kontrollpanelen</button>
+                </form>
+            </div>
         </>
     )
 };

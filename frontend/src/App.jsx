@@ -6,6 +6,9 @@ import LoginPage from '../pages/LoginPage';
 
 // import of admin
 import Dashboard from '../admin/pages/Dashboard';
+import ProtectedRoute from '../admin/components/ProtectedRoute';
+import AdminLayout from '../layouts/AdminLayout';
+import AdminLogin from '../admin/pages/AdminLogin';
 
 function App() {
 
@@ -16,8 +19,16 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
 
-        {/* protected routes ska in */}
-        <Route path='/admin' element={<Dashboard />} />
+
+        {/* Admin routes */}
+        <Route path='/admin/login' element={<AdminLogin />} />
+        <Route path='/admin'
+          element={<ProtectedRoute>
+            <AdminLayout>
+              <Dashboard />
+            </AdminLayout>
+          </ProtectedRoute>} />
+
       </Routes>
     </BrowserRouter>
   )
