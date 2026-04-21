@@ -1,5 +1,4 @@
 import mongoose, { mongo } from "mongoose";
-import { execOnce } from "next/dist/shared/lib/utils";
 
 const scheduleEntry = new mongoose.Schema({
     date: {
@@ -13,7 +12,7 @@ const scheduleEntry = new mongoose.Schema({
     },
     users: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
+        ref: 'User',
         required: true
     }]
 });
