@@ -30,3 +30,11 @@ export const protect = async (req, res, next) => {
         return res.status(401).json({ message: "Inget token hittades" });
     }
 };
+
+export const admin = (req, res, next) => {
+    if (req.user && req.user.role === 'admin') {
+        next();
+    } else {
+        res.status(403).json({ message: 'Endast admin har tillgång till denna sida' });
+    }
+};

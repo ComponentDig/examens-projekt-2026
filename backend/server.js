@@ -8,6 +8,7 @@ import cors from "cors";
 
 
 import authRoutes from "./routes/authRoutes.js";
+import scheduleRoutes from "./routes/scheduleRoutes.js";
 
 // express application
 const server = express();
@@ -17,6 +18,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/auth', authRoutes);
+server.use('/api/schedule', scheduleRoutes);
 
 const PORT = process.env.PORT || 5555;
 
