@@ -1,6 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AdminSidebar = () => {
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('userToken');
+
+        navigate('/admin/login', { replace: true });
+    }
+
     return (
         <>
             <aside className='w-64 bg-adminsidebar text-admintext flex flex-col'>
@@ -11,7 +21,12 @@ const AdminSidebar = () => {
                     <Link to="/admin/schedule" className='block p-3'>Schema</Link>
                 </nav>
 
-                <div className='p-4 text-xs text-center'>Inloggad som Administratör</div>
+
+                <div className='p-4 space-y-4'>
+                    <div className='p-4 text-xs text-center'>Inloggad som Administratör</div>
+
+                    <button onClick={handleLogout} className='w-full p-3 font-semibold'>Logga ut</button>
+                </div>
             </aside>
         </>
     )
