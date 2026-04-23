@@ -9,6 +9,7 @@ import Dashboard from '../admin/pages/Dashboard';
 import ProtectedRoute from '../admin/components/ProtectedRoute';
 import AdminLayout from '../layouts/AdminLayout';
 import AdminLogin from '../admin/pages/AdminLogin';
+import AdminSchedulePage from '../admin/pages/AdminSchedulePage';
 
 function App() {
 
@@ -22,12 +23,24 @@ function App() {
 
         {/* Admin routes */}
         <Route path='/admin/login' element={<AdminLogin />} />
+
+
+        <Route path='/admin' element={<ProtectedRoute>
+          <AdminLayout />
+        </ProtectedRoute>}
+        >
+          <Route index element={<Dashboard />} />
+          <Route path='schedule' element={<AdminSchedulePage />} />
+          {/* <Route path='users' element={}/> */}
+        </Route>
+
+        {/*         
         <Route path='/admin'
           element={<ProtectedRoute>
             <AdminLayout>
               <Dashboard />
             </AdminLayout>
-          </ProtectedRoute>} />
+          </ProtectedRoute>} /> */}
 
       </Routes>
     </BrowserRouter>
