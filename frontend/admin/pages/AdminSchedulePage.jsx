@@ -29,7 +29,7 @@ const AdminSchedulePage = () => {
             } else {
                 setMessage({ type: 'error', text: data.message || 'Något gick fel' });
             }
-        } catch (error) {
+        } catch  {
             setMessage({type: 'error', text: 'Kunde inte ansluta till server'});
         } finally {
             setLoading(false);
