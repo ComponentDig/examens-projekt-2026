@@ -101,6 +101,35 @@ class authController {
             res.status(500).json({ message: "Kunde inte hämta profil" });
         }
     }
+
+    // funktion för admin att lägga till egna användare
+    static async adminCreateUser(req, res) {
+        try {
+            const { firstName, lastName, email, password, horses } = req.body;
+
+            const userExists = await User.findOne({ email });
+            if (userExists) {
+                return res.status(400).json({ message: 'Epost redan registrerade' });
+            }
+
+            const newUser = await User.create({
+                firstName,
+                lastName,
+                email,
+                password,
+                horses,
+                role: 'user'
+            });
+
+            res.status(201).json({
+                message: 'Ägare tillagd',
+                user: { id: newUser._id, name: newUser.firstName }
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'Kunde inte lägga till användare', error: error });
+        }
+    }
+
 }
 
 export default authController;

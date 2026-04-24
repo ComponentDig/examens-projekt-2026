@@ -13,6 +13,7 @@ router.post('/login', authController.loginUser);
 router.get('/profile', protect, authController.getProfile);
 
 // Admin routes
+router.post('/admin-create', protect, admin, authController.adminCreateUser);
 
 
 export default router;
