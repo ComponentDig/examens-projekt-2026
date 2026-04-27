@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+
+// page för admin för att generera schema för en specifik månad
+// admin kan välja vilken månad och vilket år och sedan trycka på en knapp
+// för att generera schemat
 const AdminSchedulePage = () => {
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1);

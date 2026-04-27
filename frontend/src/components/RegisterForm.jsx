@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+
+// formulär för att registrera sig som användare
+// ha kvar? ta bort?
 const RegisterForm = ({ onRegister }) => {
     const [formData, setFormData] = useState({
         firstName: '',

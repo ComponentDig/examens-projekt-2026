@@ -4,15 +4,14 @@ import jwt from "jsonwebtoken";
 export const protect = async (req, res, next) => {
     let token;
 
-    // check if there is Bearer in the header
     if (req.headers.authorization?.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
 
-            // verify token
+            // verifiera token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-            // get user
+            // hämta användare
             req.user = await User.findById(decoded.id);
 
             if (!req.user) {
@@ -25,7 +24,7 @@ export const protect = async (req, res, next) => {
         }
     }
 
-    // if no token found
+    // om ingen token hittas
     if (!token) {
         return res.status(401).json({ message: "Inget token hittades" });
     }

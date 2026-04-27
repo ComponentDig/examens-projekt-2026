@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
 
-// schema for users
+// schema för användare
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,

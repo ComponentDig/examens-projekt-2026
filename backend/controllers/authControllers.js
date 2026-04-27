@@ -20,18 +20,18 @@ const generateToken = (user) => {
 
 class authController {
 
-    // Register user
+    // registrera användare - ta bort eller behålla?
     static async registerUser(req, res) {
         try {
             const { firstName, lastName, email, password, horses } = req.body;
 
-            // check if user already exists
+            // kollar om användare redan finns
             const userExists = await User.findOne({ email });
             if (userExists) {
                 return res.status(400).json({ message: "Användare finns redan" });
             }
 
-            // create user
+            // skapa ny användare
             const newUser = await User.create({
                 firstName,
                 lastName,
@@ -40,7 +40,6 @@ class authController {
                 horses
             });
 
-            // send response
             res.status(201).json({
                 message: "Registrering lyckades",
                 token: generateToken(newUser),
@@ -57,20 +56,20 @@ class authController {
     }
 
 
-    // Login
+    // logga in
     static async loginUser(req, res) {
         try {
             const { email, password } = req.body;
 
-            // find user - include password for validation
+            // hitta användare
             const user = await User.findOne({ email }).select('+password');
 
-            // check that user and password match - matchPassword in userSchema
+            // koll att användare och lösen matchar - matchPassword in userSchema
             if (!user || !(await user.matchPassword(password))) {
                 return res.status(401).json({ message: "Felaktig e-post eller lösenord" });
             }
 
-            // generate token and respond
+            // genererar ett token
             res.json({
                 message: "Inloggning lyckades",
                 token: generateToken(user),
@@ -86,10 +85,10 @@ class authController {
         }
     }
 
-    // get profile
+    // hämta profile
     static async getProfile(req, res) {
         try {
-            // req.user is from auth middleware
+            // req.user från authMiddleware
             const user = await User.findById(req.user.id);
 
             if (!user) {

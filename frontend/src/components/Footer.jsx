@@ -1,7 +1,7 @@
 import Logo from '../assets/logo.png';
 
 function Footer () {
-    
+
     return (
         <>
         <footer className="w-full bg-secondarycolor py-12 px-8 mt-auto">
@@ -15,6 +15,7 @@ function Footer () {
 
                 <div className="flex- flex-col gap-2">
                     <p>Länk till Freyfaxi</p>
+                    {/* lägga in länk till föreningen */}
                     <a href="" target="_blank" className="underline hover:opacity-70 transition">Freyfaxi</a>
                 </div>
 
