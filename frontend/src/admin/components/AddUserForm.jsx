@@ -1,5 +1,12 @@
 import { useState } from "react";
 
+// komponent för att registrera en ny user - admin
+// admin kan fylla i formulär för att lägga till hästägare i adminpanelen
+// och sedan använda listan med ägare för att generera
+// stalltjänstschemat
+// tanke att ha en invite-only registrering
+// så endast de som har med stallet att göra kan logga in för att
+// ta del av relevant information samt se stallschema osv.
 const AddUserForm = ({ onUserAdded }) => {
     const [formData, setFormData] = useState({
         firstName: '',
