@@ -1,5 +1,7 @@
 import User from "../models/userSchema.js";
+import Invitation from "../models/Invitation.js";
 import jwt from "jsonwebtoken";
+import crypto from 'crypto';
 
 const generateToken = (user) => {
 
@@ -102,6 +104,8 @@ class authController {
     }
 
     // funktion för admin att lägga till egna användare
+    // ta bort
+    /*
     static async adminCreateUser(req, res) {
         try {
             const { firstName, lastName, email, password, horses } = req.body;
@@ -126,6 +130,87 @@ class authController {
             });
         } catch (error) {
             res.status(500).json({ message: 'Kunde inte lägga till användare', error: error });
+        }
+    }
+        */
+    // till hit
+
+
+    // skapar en inbjudning för att registrera sig som hästägare
+    static async createInvite(req, res) {
+        try {
+            const { email, horses } = req.body;
+
+            const token = crypto.randomBytes(20).toString('hex');
+
+            await Invitation.create({
+                email,
+                token,
+                horses
+            });
+
+            const inviteLink = `${process.env.FRONTEND_URL}/register?token=${token}`;
+
+            res.status(201).json({ inviteLink });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Kunde inte skapa inbjudningslänk" });
+        }
+    }
+
+    // verifiera en inbjudan baserat på token
+    // hämtar token och kolla om det finns en giltig inbjudan
+    // om ok returneras det
+    // om inte ok kommer ett felmeddelande visas
+    static async verifyInvite(req, res) {
+        try {
+            const { token } = req.params;
+            const invite = await Invitation.findOne({
+                token,
+                isUsed: false,
+                createdAt: { $gt: Date.now() }
+            });
+
+            if (!invite) {
+                return res.status(400).json({ message: "Inbjudan är ogiltig" });
+            }
+
+            res.json({ email: invite.email, horses: invite.horses });
+        } catch (error) {
+            res.status(500).json({ message: "Ett fel uppstod vid verifiering" });
+        }
+    }
+
+    // för att slutföra registreringen
+    // tar emot token och användaruppgifter
+    // kollar efter en giltig inbjudan
+    // när användaren är registrerad så visas inbjudan som använd
+    // felmeddelande visas om registrering inte lyckades
+    static async completeRegistration(req, res) {
+        try {
+            const { token, firstName, lastName, password } = req.body;
+
+            const invite = await Invitation.findOne({ token, isUsed: false });
+            if (!invite) {
+                return res.status(400).json({ message: "Inbjudan hittades inte" });
+            }
+
+            const newUser = await User.create({
+                firstName,
+                lastName,
+                email: invite.email,
+                horses: invite.horses,
+                password,
+                role: 'user'
+            });
+
+            invite.isUsed = true;
+            await invite.save();
+
+            res.status(201).json({ message: "Konto skapat!", userId: newUser._id });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Kunde inte slutföra registrering" });
         }
     }
 
