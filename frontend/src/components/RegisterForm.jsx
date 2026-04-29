@@ -3,11 +3,10 @@ import { useState } from "react";
 
 // formulär för att registrera sig som användare
 // ha kvar? ta bort?
-const RegisterForm = ({ onRegister }) => {
+const RegisterForm = ({ onRegister, initialEmail }) => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
-        email: '',
         password: ''
     });
 
@@ -22,15 +21,20 @@ const RegisterForm = ({ onRegister }) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="">
-                <div className="">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+
+                <div className="text-sm p-2 rounded border">
+                    Registrera konto för: <strong>{initialEmail}</strong>
+                </div>
+
+                <div className="flex gap-2">
                     <input
                         name="firstName"
                         value={formData.firstName}
                         placeholder="Förnamn"
                         onChange={handleChange}
                         required
-                        className=""
+                        className="border p-2 rounded w-full"
                     />
 
                     <input
@@ -39,18 +43,9 @@ const RegisterForm = ({ onRegister }) => {
                         placeholder="Efternamn"
                         onChange={handleChange}
                         required
-                        className=""
+                        className="border p-2 rounded w-full"
                     />
                 </div>
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    placeholder="E-postadress"
-                    onChange={handleChange}
-                    required
-                    className=""
-                />
 
                 <input
                     type="password"
@@ -59,10 +54,10 @@ const RegisterForm = ({ onRegister }) => {
                     placeholder="Lösenord"
                     onChange={handleChange}
                     required
-                    className=""
+                    className="border p-2 rounded w-full"
                 />
-                <button type="submit" className="">
-                    Skapa Konto
+                <button type="submit" className="bg-green-600 text-white p-2 rounded hover:opacity-90">
+                    Slutför registrering
                 </button>
             </form>
         </>
