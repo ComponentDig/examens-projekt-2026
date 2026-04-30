@@ -103,38 +103,9 @@ class authController {
         }
     }
 
-    // funktion för admin att lägga till egna användare
-    // ta bort
-    /*
-    static async adminCreateUser(req, res) {
-        try {
-            const { firstName, lastName, email, password, horses } = req.body;
-
-            const userExists = await User.findOne({ email });
-            if (userExists) {
-                return res.status(400).json({ message: 'Epost redan registrerade' });
-            }
-
-            const newUser = await User.create({
-                firstName,
-                lastName,
-                email,
-                password,
-                horses,
-                role: 'user'
-            });
-
-            res.status(201).json({
-                message: 'Ägare tillagd',
-                user: { id: newUser._id, name: newUser.firstName }
-            });
-        } catch (error) {
-            res.status(500).json({ message: 'Kunde inte lägga till användare', error: error });
-        }
-    }
-        */
-    // till hit
-
+    // Tog hjälp av gemini för att påbörja flödet med invite-only registrering.
+    // Promtade "Kan du vägleda mig att skapa funktion för invite-only registrering där 
+    // admin ska skicka en inbjudningslänk för att en användare ska kunna registrera sig? Utan att skicka hela kodlösningen"    
 
     // skapar en inbjudning för att registrera sig som hästägare
     static async createInvite(req, res) {
