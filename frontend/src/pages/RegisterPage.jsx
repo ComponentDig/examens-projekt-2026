@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import RegisterForm from "../components/RegisterForm";
 
+// registreringssida för användare som blivit inbjudna av admin
+// hämtar token och verifierar från url
+// om token är ok så visas formulär för att slutföra registrering
+// om inte ok visas ett felmeddelande
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
