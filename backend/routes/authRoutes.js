@@ -13,10 +13,10 @@ router.post('/login', authController.loginUser);
 router.get('/profile', protect, authController.getProfile);
 
 // Admin routes
-router.post('/admin-create', protect, admin, authController.adminCreateUser);
+// router.post('/admin-create', protect, admin, authController.adminCreateUser);
 router.post('/invite', authController.createInvite);
 router.get('/verify-invite/:token', authController.verifyInvite);
-router.get('/complete-registration', authController.completeRegistration);
+router.post('/complete-registration', authController.completeRegistration);
 
 
 export default router;

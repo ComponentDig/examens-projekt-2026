@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function () {
     // beräknar pass baserat på antal hästar
     if (this.isModified('horses') || this.isNew) {
         if (this.horses === 1) {
@@ -56,15 +56,10 @@ userSchema.pre('save', async function (next) {
         }
     }
     // Hashning av lösenord
-    if (!this.isModified('password')) return next();
-
-    try {
+    if (!this.isModified('password')) {
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(error);
-    }
+    };
 });
 
 // comparing password when user logging in

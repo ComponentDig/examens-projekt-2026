@@ -47,7 +47,7 @@ const RegisterPage = () => {
 
             const finalData = { ...formDetails, token };
 
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/complete-register`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/complete-registration`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(finalData),

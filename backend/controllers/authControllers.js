@@ -139,7 +139,6 @@ class authController {
             const invite = await Invitation.findOne({
                 token,
                 isUsed: false,
-                createdAt: { $gt: Date.now() }
             });
 
             if (!invite) {
@@ -158,6 +157,7 @@ class authController {
     // när användaren är registrerad så visas inbjudan som använd
     // felmeddelande visas om registrering inte lyckades
     static async completeRegistration(req, res) {
+        console.log("Rätt??");
         try {
             const { token, firstName, lastName, password } = req.body;
 

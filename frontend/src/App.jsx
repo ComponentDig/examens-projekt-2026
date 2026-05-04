@@ -12,6 +12,7 @@ import ProtectedRoute from './admin/components/ProtectedRoute';
 import AdminLayout from './layouts/AdminLayout';
 import AdminLogin from './admin/pages/AdminLogin';
 import AdminSchedulePage from './admin/pages/AdminSchedulePage';
+import AdminUserPage from './admin/pages/AdminUserPage';
 
 
 function App() {
@@ -41,8 +42,7 @@ function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path='schedule' element={<AdminSchedulePage />} />
-          {/* förberedd route för att hantera users */}
-          {/* <Route path='users' element={}/> */}
+          <Route path='users' element={<AdminUserPage />} />
         </Route>
 
 
