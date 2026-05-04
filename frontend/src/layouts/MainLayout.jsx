@@ -1,14 +1,17 @@
+import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-function MainLayout(props) {
+function MainLayout() {
 
     return (
         <>
             <div className="flex flex-col min-h-screen">
                 <Header />
 
-                <main className="grow bg-primarybgcolor">{props.children}</main>
+                <main className="grow bg-primarybgcolor">
+                    <Outlet />
+                </main>
 
                 <Footer />
             </div>

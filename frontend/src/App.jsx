@@ -13,6 +13,7 @@ import AdminLayout from './layouts/AdminLayout';
 import AdminLogin from './admin/pages/AdminLogin';
 import AdminSchedulePage from './admin/pages/AdminSchedulePage';
 import AdminUserPage from './admin/pages/AdminUserPage';
+import AboutUs from './pages/AboutUs';
 
 
 function App() {
@@ -22,12 +23,10 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path='/' element={
-          <MainLayout>
-            <Home />
-          </MainLayout>
-        } />
-
+        <Route element={<MainLayout />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<AboutUs />} />
+        </Route>
 
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
