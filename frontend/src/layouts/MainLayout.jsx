@@ -8,7 +8,7 @@ function MainLayout(props) {
             <div className="flex flex-col min-h-screen">
                 <Header />
 
-                <main className="grow">{props.children}</main>
+                <main className="grow bg-primarybgcolor">{props.children}</main>
 
                 <Footer />
             </div>
