@@ -14,11 +14,12 @@ function AboutUs() {
                 </div>
             </section>
 
-            {/* historien om tuna */}
+            {/* liten historia om Tuna */}
             <section className="py-16 px-16 max-w-6xl mx-auto font-primary">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div>
                         <h2 className="text-3xl font-bold mb-6">Hur allt började</h2>
+                        {/* 1800-tal - oklart exakt när byn från 1400-1500-tal */}
                         <p className="mb-4 leading-relaxed">
                             Gården - som är från tidigt 1900-tal - köptes av nuvarande ägare i slutet av 80-talet.
                             Från början var det halvblods hästar som huserade i stallet. Först XXXX kom den första islandshästen till gården.
@@ -26,7 +27,7 @@ function AboutUs() {
                         </p>
                         <p className="leading-relaxed">Text om ovalbana bla.bla</p>
                     </div>
-                    <div className="rounded-2xl overflow-hidden shadow-2xl transform rotate-2">
+                    <div className="rounded-2xl overflow-hidden shadow-2xl transform">
                         {/* bild från förr? om man kan hitta. kanske byta bilden till flygfoto*/}
                         <img src={oldPhoto} className="w-full h-80 object-cover" alt="Stallet från 80-talet" />
                     </div>
@@ -37,11 +38,11 @@ function AboutUs() {
             <section className="py-16 px-16 font-primary">
                 <div className="max-6-xl mx-auto text-center mb-12">
                     <h2 className="text-3xl font-bold">Hjärtat i stallet</h2>
-                    <p className="mt-2">Det är vi äger Stall Tuna</p>
+                    <p className="mt-2">Det är vi som äger Stall Tuna</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div className="p-6 rounded-lg shadow-sm text-center">
+                    <div className="bg-[#FEF8EE] p-6 rounded-lg shadow-sm text-center">
                         <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4">
                             <img src="" className="" alt="" />
                         </div>
@@ -50,20 +51,53 @@ function AboutUs() {
                         <p className=""></p>
                     </div>
                     {/* nästa ägare */}
-                        <div className="p-6 rounded-lg shadow-sm text-center">
-                            <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4">
-                                <img src="" className="" alt="" />
-                            </div>
-                            <h3 className="font-bold text-xl">Klas Wallsten</h3>
-                            <p className="text-sm font-semibold mb-3">Ägare och gårdstomte</p>
-                            <p className=""></p>
+                    <div className="bg-[#FEF8EE] p-6 rounded-lg shadow-sm text-center">
+                        <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4">
+                            <img src="" className="" alt="" />
                         </div>
+                        <h3 className="font-bold text-xl">Klas Wallsten</h3>
+                        <p className="text-sm font-semibold mb-3">Ägare och gårdstomte</p>
+                        <p className=""></p>
                     </div>
+
+                    {/* hundarna? */}
+
+
+                </div>
             </section>
 
-            {/* värdegrund? */}
-            <section className="">
+            {/* några hästägare */}
+            <section className="py-16 px-16 font-primary">
+                <div className='max-w-6xl mx-auto'>
+                    <h2 className='text-3xl font-bold text-center mb-12'>Hästägare</h2>
 
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto'>
+
+                        {/* kort 1 */}
+                        <div className='bg-[#FEF8EE] p-6 rounded-2xl shadow-sm flex flex-col items-center text-center'>
+                            <div className='w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4'>
+                                <img src='' className='' alt='' />
+                            </div>
+                            <h4 className='font-bold text-lg mb-2'>Veronika & Eskill</h4>
+                            <span className='text-xs uppercase tracking-wider font-semibold mb-2'>Inackorderad</span>
+                            <p className='italic'>"Jag har stått på Tuna i 5 år. Alla är så hjälpsamma och vi trivs superbra!</p>
+                        </div>
+
+                        {/* kort 2 */}
+                           <div className='bg-[#FEF8EE] p-6 rounded-2xl shadow-sm flex flex-col items-center text-center'>
+                            <div className='w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4'>
+                                <img src='' className='' alt='' />
+                            </div>
+                            <h4 className='font-bold text-lg mb-2'>Hanna & Hlynur</h4>
+                            <span className='text-xs uppercase tracking-wider font-semibold mb-2'>Inackorderad</span>
+                            <p className='italic'>"Jag har stått på Tuna i 10 år. Alla är så hjälpsamma och vi trivs superbra!</p>
+                        </div>
+
+                        {/* lägg till fler? */}
+
+
+                    </div>
+                </div>
             </section>
 
         </>
