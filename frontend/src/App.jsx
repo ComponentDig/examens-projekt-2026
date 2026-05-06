@@ -14,6 +14,7 @@ import AdminLogin from './admin/pages/AdminLogin';
 import AdminSchedulePage from './admin/pages/AdminSchedulePage';
 import AdminUserPage from './admin/pages/AdminUserPage';
 import AboutUs from './pages/AboutUs';
+import BookingPage from './pages/BookingPage';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<AboutUs />} />
+          <Route path='/booking' element={<BookingPage />} />
         </Route>
 
         <Route path='/register' element={<RegisterPage />} />

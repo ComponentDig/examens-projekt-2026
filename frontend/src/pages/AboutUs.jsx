@@ -1,5 +1,6 @@
 import HeroImage from '../assets/Tuna-vinter.jpg';
 import oldPhoto from '../assets/Tuna-80tal.jpg';
+
 function AboutUs() {
 
     return (
