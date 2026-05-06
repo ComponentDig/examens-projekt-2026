@@ -15,9 +15,8 @@ function Header() {
                         <ul className='flex justify-center gap-8 md:gap-16 py-6 text-sm md:text-base tracking font-primary'>
                             <li><NavLink to="/" className={({ isActive }) => isActive ? "active-link" : "link"}>Hem</NavLink></li>
                             <li><NavLink to="/about" className={({ isActive }) => isActive ? "active-link" : "link"}>Vi på Tuna</NavLink></li>
-                            <li><NavLink to="/" className={({ isActive }) => isActive ? "active-link" : "link"}>Boka Banan</NavLink></li>
                             <li><NavLink to="/" className={({ isActive }) => isActive ? "active-link" : "link"}>På gång</NavLink></li>
-                            <li><NavLink to="/login" className={({ isActive }) => isActive ? "active-link" : "link"}>Logga in</NavLink></li>
+                            <li><NavLink to="/" className={({ isActive }) => isActive ? "active-link" : "link"}>Boka Banan</NavLink></li>
                         </ul>
                     </div>
                 </nav>

@@ -84,7 +84,7 @@ function AboutUs() {
                         </div>
 
                         {/* kort 2 */}
-                           <div className='bg-[#FEF8EE] p-6 rounded-2xl shadow-sm flex flex-col items-center text-center'>
+                        <div className='bg-[#FEF8EE] p-6 rounded-2xl shadow-sm flex flex-col items-center text-center'>
                             <div className='w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4'>
                                 <img src='' className='' alt='' />
                             </div>
@@ -99,6 +99,9 @@ function AboutUs() {
                     </div>
                 </div>
             </section>
+
+            {/* galleri med olika bilder? */}
+
 
         </>
     )
