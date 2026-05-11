@@ -20,7 +20,7 @@ function Home() {
                         <p className='text-lg mb-4'>Här möts intresset för islandshästar i en lugn och naturnära miljö - där samarbete och glädjen för hästlivet står i centrum.</p>
                         <p className='mb-4'>På gården finns en fin ovalbana som kan bokas för träning och tävling. Vårat stall en perfekt plats för att rida, umgås och njuta av tiden i stallet.</p>
                         <p className='mb-6'>På stall Tuna vill vi att det ska vara en plats där man trivs och känner sig välkommen - här är vi som en stor familj.</p>
-                        <NavLink to="/boka" className="inline-block bg-secondarycolor text-textprimary px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-opacity-90 hover:scale-105 transition-all">Boka Banan</NavLink>
+                        <NavLink to="/booking" className="inline-block bg-secondarycolor text-textprimary px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-opacity-90 hover:scale-105 transition-all">Boka Banan</NavLink>
                     </div>
                 </div>
             </div>

@@ -99,8 +99,13 @@ export async function generateSchedule(taskPool, year, month) {
 
             let selectedUser = horseOwners[0];
 
+            // Tog hjälp av AI att få till en lösning som inte kastade ett fel
+            // när man tröck på generera schema i adminpanelen pga för få användare inlagda
+            // skapa en bättre lösning för att kunna generera ändå
             if (!selectedUser) {
-                throw new Error(`Kunde inte tilldela slot ${slot + 1} för passet ${task.taskType} den ${task.date.toDateString()}.`);
+                // throw new Error(`Kunde inte tilldela slot ${slot + 1} för passet ${task.taskType} den ${task.date.toDateString()}.`);
+                console.warn(`Kunde inte hitta användare till ${task.taskType} ${task.date.toDateString()}`);
+                continue;
             }
 
             const userIndex = userPool.findIndex(owner => owner.id === selectedUser.id);

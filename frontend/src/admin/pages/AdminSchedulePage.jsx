@@ -16,6 +16,9 @@ const AdminSchedulePage = () => {
 
         const token = localStorage.getItem('userToken');
 
+        console.log("API: ", import.meta.env.VITE_API_URL);
+        console.log("TOKEN: ", token);
+
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/schedule/generate`, {
                 method: 'POST',
