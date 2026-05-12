@@ -102,6 +102,7 @@ export async function generateSchedule(taskPool, year, month) {
             // Tog hjälp av AI att få till en lösning som inte kastade ett fel
             // när man tröck på generera schema i adminpanelen pga för få användare inlagda
             // skapa en bättre lösning för att kunna generera ändå
+            // nu läggs pass ut på de användare som finns och visar meddelande att inte kunde tilldela alla pass
             if (!selectedUser) {
                 // throw new Error(`Kunde inte tilldela slot ${slot + 1} för passet ${task.taskType} den ${task.date.toDateString()}.`);
                 console.warn(`Kunde inte hitta användare till ${task.taskType} ${task.date.toDateString()}`);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 
+
 // page för admin för att generera schema för en specifik månad
 // admin kan välja vilken månad och vilket år och sedan trycka på en knapp
 // för att generera schemat
@@ -15,9 +16,6 @@ const AdminSchedulePage = () => {
         setMessage(null);
 
         const token = localStorage.getItem('userToken');
-
-        console.log("API: ", import.meta.env.VITE_API_URL);
-        console.log("TOKEN: ", token);
 
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/schedule/generate`, {
@@ -77,6 +75,7 @@ const AdminSchedulePage = () => {
                     </div>
                 )}
             </div>
+
         </div>
         </>
     )

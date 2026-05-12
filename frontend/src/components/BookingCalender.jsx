@@ -2,6 +2,8 @@ import { useState } from "react";
 
 // bokningskalendern för ridbanan
 // en månadsvy visas, användare kan välja datum att boka
+// man kan välja timme, halvdag eller heldag
+// lägga till vilka timmar man kan boka - direkt via kalendern eller via formuläret där man slutför bokningen?
 
 function BookingCalender({ selectedDate, onDateChange }) {
     const [viewDate, setViewDate] = useState(new Date());
