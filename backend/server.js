@@ -15,7 +15,7 @@ const server = express();
 
 // middleware
 server.use(cors({
-    origin: "https://examens-projekt-2026.vercel.app",
+    origin: "https://hemma-pa-tuna.vercel.app",
     credentials: true
 }));
 server.use(express.json());
