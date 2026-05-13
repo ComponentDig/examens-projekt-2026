@@ -14,7 +14,10 @@ import scheduleRoutes from "./routes/scheduleRoutes.js";
 const server = express();
 
 // middleware
-server.use(cors());
+server.use(cors({
+    origin: "https://examens-projekt-2026.vercel.app",
+    credentials: true
+}));
 server.use(express.json());
 
 server.use('/api/auth', authRoutes);
