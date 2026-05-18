@@ -48,22 +48,34 @@ export const getScheduleController = async (req, res) => {
 
 export const updateScheduleEntry = async (req, res) => {
     const { id } = req.params;
-    const { userId } = req.body;
+    const { userId, action } = req.body;
 
     try {
-        const updatedUsers = (userId && userId !== "remove_user") ? [userId] : [];
+
+        let updatedQuery = {};
+
+        if (action === "remove") {
+            updatedQuery = { $pull: { users: userId } };
+        }
+        else {
+            if (!userId) {
+                return res.status(400).json({ message: "userId krävs" });
+            }
+            updatedQuery = { $addToSet: { users: userId } };
+        }
 
         const updatedEntry = await Schedule.findByIdAndUpdate(
             id,
-            { users: updatedUsers },
+            updatedQuery,
             { new: true }
         ).populate('users', 'firstName lastName');
 
         if (!updatedEntry) {
-            return res.status(404).json({ message: "Passet hittades inte" });
+            return res.status(404).json({ message: "passet hittades inte" });
         }
 
         return res.status(200).json({ success: true, entry: updatedEntry });
+
     } catch (error) {
         console.error('Fel vid uppdateringen', error);
         return res.status(500).json({ message: error.message || 'Internt serverfel' });
