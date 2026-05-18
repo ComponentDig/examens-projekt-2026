@@ -1,5 +1,70 @@
 # examens-projekt-2026
 
+# Komma igång och starta applikationen
+
+## Steg 1: Förberedelser
+
+Först måste du se till att ha node.js installerat för att kunna starta igång applikationen på datorn och ett program som koden kan 'bo' i.
+1. **Ladda ner Node.js:**
+   Gå till [nodejs.org](https://nodejs.org/en/download) och ladda ner den senaste versionen som heter LTS. Installera på din dator som ett vanligt program.
+2. **Ladda ner en kodredigerare:**
+   Ladda ner **Visual Studio Code (VS Code)** från [code.visualstudio.com](http://code.visualstudio.com/) för att lättare kunna se och hantera filerna.
+
+---
+
+## Steg 2: Öppna rätt mappar
+
+Det här projektet är uppdelat i två delar:
+* **backend** (Det som är hjärnan - databasen - det körs i bakgrunden)
+* **frontend** (Det visuella - det som du ser i webbläsarfönstret)
+  
+För att starta projektet behöver du öppna två olika terminalfönster. Såhär gör du:
+1. Öppna **VS Code**
+2. Välj *File* -> *Open Folder* och öppna den mapp där projektet ligger.
+3. Öppna en terminal i VC Code genom att klicka på **Terminal** i menyn högst upp och välj **New Terminal**
+
+---
+
+## Steg 3: Starta Servern - backendfilen
+
+Börja med att starta backend - servern.
+1. **Gå in i backend-mappen:**
+   Skriv detta kommando i din terminal du precis öppande i **VS Code** och tryck sedan Enter.
+   ```bash
+        cd backend
+   ```
+2. **Installera alla nödvändiga paket:**
+   Sedan skriver du detta kommando i din terminal för att installera nödvändiga paket pch tryck Enter. Det kan ta en liten stund.
+   ````bash
+        npm install
+   ```
+3. **Starta servern**
+   Nu ska du starta servern, det gör du genom att i terminalen skriva:
+   ````bash
+        nodemon server
+   ``` 
+I terminalen komm du att se "Server is running on port XXXX" Låt terminalen vara igång. Stäng den inte!
+
+## Steg 4: Starta frontenden
+
+Först måste du öppna en ny terminal. Det gör via plustecknet som finns uppe till höger i terminalfönstert i VS Code.
+När en ny terminal är öppnad behöver du navigera till frontend mappen på samma sätt som för backend.
+Skriv: 
+```bash
+    cd frontend
+``` 
+och tryck på Enter.
+
+Här ska vi också installera nödvändiga paket:
+```bash
+    npm install
+```
+
+När alla nödvändiga paket är installerade kan du dra igång sidan! Det gör du genom att i terminalen för frontend skriva:
+````bash
+    npm run dev
+``` 
+
 # Översiktig beskrivning
 Hemma på Tuna* är en webbplattform designad för att förenkla administrationen inom ett stall. Där admin har ett lätt verktyg för att generera stallschema månad för månad. 
 Syftet är också att förenkla vägen till att boka ridbanan vid träningar och tävlingar med en interaktiv kalender som tydligt visar bokade/obokade datum.
