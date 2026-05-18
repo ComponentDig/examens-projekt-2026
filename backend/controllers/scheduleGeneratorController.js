@@ -24,11 +24,13 @@ export function buildTaskPool(year, month) {
         const isSatOrSun = isWeekend(currentDay);
         const isHoliday = holiday.isHoliday(currentDay);
 
-        taskPool.push({ date: currentDay, taskType: 'Insläpp', slots: 2 });
-        taskPool.push({ date: currentDay, taskType: 'Kvällsfodring', slots: 1 });
+        taskPool.push({ date: currentDay, taskType: 'Insläpp', slots: 2, isManual: false });
+        taskPool.push({ date: currentDay, taskType: 'Kvällsfodring', slots: 1, isManual: false });
 
         if (isSatOrSun || isHoliday) {
-            taskPool.push({ date: currentDay, taskType: 'Utsläpp', slots: 1 });
+            taskPool.push({ date: currentDay, taskType: 'Utsläpp', slots: 1, isManual: false });
+        } else {
+            taskPool.push({ date: currentDay, taskType: 'Utsläpp', slot: 1, isManual: true });
         }
     }
 
