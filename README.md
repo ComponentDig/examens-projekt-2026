@@ -16,8 +16,8 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 ## Måste
 
 ### Applikationen ska:
-- [ ] Lagra data i en databas
-- [ ] Hantera 2 olika användarroller: admin, user
+- [x] Lagra data i en databas
+- [x] Hantera 2 olika användarroller: admin, user
 - [ ] Ha en responsiv design
 - [ ] Hantera ett genereringsverktyg för stallschema
 - [ ] Hantera bokningar för ridbanan inför träningar och tävlingar
@@ -26,7 +26,7 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - [ ] Ha information till alla inackorderade hästägare
 
 ### En användare ska kunna:
-- [ ] Registrera sig/ logga in / logga ut 
+- [x] Registrera sig/ logga in / logga ut 
 - [ ] Boka ridbanan
 - [ ] Kolla stallschema
 
@@ -37,7 +37,7 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 ### Administratörer ska kunna:
 - [ ] Redigera användares roller
 - [ ] Radera användare
-- [ ] Kunna lägga till hästägare för stallschema
+- [x] Kunna lägga till hästägare för stallschema
 - [ ] Använda schemagenereraren för stalltjänst
 
 ## Bör
@@ -54,7 +54,7 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - [ ] Gilla inlägg
 
 ## Utmaning
-- [ ] Ska publiceras på en publik webbbplats
+- [x] Ska publiceras på en publik webbbplats
 - [ ] Påminnelser för olika insatser som hästägare behöver göra t.ex. täcke på/av
 - [ ] Ägare ska kunna lägga in stam på sin häst
 
