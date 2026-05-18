@@ -1,5 +1,5 @@
 import Holidays from "date-holidays";
-import { eachDayOfInterval, isWeekend, format, startOfMonth, lastDayOfMonth, isSameDay } from 'date-fns';
+import { eachDayOfInterval, isWeekend, startOfMonth, lastDayOfMonth, isSameDay } from 'date-fns';
 import User from "../models/userSchema.js";
 import Schedule from "../models/scheduleEntry.js";
 import MonthSchedule from "../models/monthSchedule.js";
@@ -31,7 +31,7 @@ export function buildTaskPool(year, month) {
         if (isSatOrSun || isHoliday) {
             taskPool.push({ date: currentDay, taskType: 'Utsläpp', slots: 1, isManual: false });
         } else {
-            taskPool.push({ date: currentDay, taskType: 'Utsläpp', slot: 1, isManual: true });
+            taskPool.push({ date: currentDay, taskType: 'Utsläpp', slots: 1, isManual: true });
         }
     }
 
@@ -43,7 +43,6 @@ export function buildTaskPool(year, month) {
 export async function generateSchedule(taskPool, year, month) {
     const usersFromDB = await User.find({ isActive: true, role: 'user' });
 
-
     const userPool = usersFromDB.map(user => ({
         id: user._id.toString(),
         tasksLeft: user.requiredTasks,
@@ -53,82 +52,73 @@ export async function generateSchedule(taskPool, year, month) {
     const scheduleEntries = [];
 
     for (const task of taskPool) {
-        const assignedUserForTask = [];
-        // users sparas tomt för utsläpp så att admin kan lägga in manuellt på vardagar
-        if (task.isManual) {
-            scheduleEntries.push({ date: task.date, taskType: task.taskType, users: [] });
+        let assignedUserForTask = [];
 
-            continue;
-        }
+        if (!task.isManual) {
+            for (let slot = 0; slot < task.slots; slot++) {
+                let horseOwners = userPool.filter(horseOwner => {
+                    if (horseOwner.tasksLeft <= 0) {
+                        return false;
+                    }
 
-        for (let slot = 0; slot < task.slots; slot++) {
-            let horseOwners = userPool.filter(horseOwner => {
-                if (horseOwner.tasksLeft <= 0) {
-                    return false;
+                    const alreadyBookedToday = scheduleEntries.some(entry => (
+                        entry.users.includes(horseOwner.id) && isSameDay(entry.date, task.date)
+                    ));
+
+                    if (alreadyBookedToday) {
+                        return false;
+                    }
+
+                    if (assignedUserForTask.includes(horseOwner.id)) {
+                        return false;
+                    }
+
+                    return true;
+                });
+
+                // sortering av hästägare 
+                // väljer de som har gjort minst pass först
+                horseOwners.sort((horseOwnerA, horseOwnerB) => {
+                    const taskDifference = horseOwnerB.tasksLeft - horseOwnerA.tasksLeft;
+
+                    if (taskDifference !== 0) {
+                        return taskDifference;
+                    }
+
+                    if (horseOwnerA.lastTaskDate === null && horseOwnerB.lastTaskDate !== null) {
+                        return -1;
+                    }
+
+                    if (horseOwnerA.lastTaskDate !== null && horseOwnerB.lastTaskDate === null) {
+                        return 1;
+                    }
+
+                    if (horseOwnerA.lastTaskDate === null && horseOwnerB.lastTaskDate === null) {
+                        return 0;
+                    }
+
+                    return horseOwnerA.lastTaskDate - horseOwnerB.lastTaskDate;
+                });
+
+                let selectedUser = horseOwners[0];
+
+                if (!selectedUser) {
+                    console.warn(`Kunde inte hitta användare till ${task.taskType} ${task.date.toDateString()}`);
+                    continue;
                 }
 
-                const alreadyBookedToday = scheduleEntries.some(entry => (
-                    entry.users.includes(horseOwner.id) && isSameDay(entry.date, task.date)
-                ));
+                const userIndex = userPool.findIndex(owner => owner.id === selectedUser.id);
 
-                if (alreadyBookedToday) {
-                    return false;
+                if (userIndex === -1) {
+                    throw new Error('Internt fel: Hittade inte den valda ägaren.');
                 }
 
-                if (assignedUserForTask.includes(horseOwner.id)) {
-                    return false;
-                }
+                userPool[userIndex].tasksLeft -= 1;
+                userPool[userIndex].lastTaskDate = task.date;
 
-                return true;
-            });
-
-            // sortering av hästägare 
-            // väljer de som har gjort minst pass först
-            horseOwners.sort((horseOwnerA, horseOwnerB) => {
-                const taskDifference = horseOwnerB.tasksLeft - horseOwnerA.tasksLeft;
-
-                if (taskDifference !== 0) {
-                    return taskDifference;
-                }
-
-                if (horseOwnerA.lastTaskDate === null && horseOwnerB.lastTaskDate !== null) {
-                    return -1;
-                }
-
-                if (horseOwnerA.lastTaskDate !== null && horseOwnerB.lastTaskDate === null) {
-                    return 1;
-                }
-
-                if (horseOwnerA.lastTaskDate === null && horseOwnerB.lastTaskDate === null) {
-                    return 0;
-                }
-
-                return horseOwnerA.lastTaskDate - horseOwnerB.lastTaskDate;
-            });
-
-            let selectedUser = horseOwners[0];
-
-            // Tog hjälp av AI att få till en lösning som inte kastade ett fel
-            // när man tröck på generera schema i adminpanelen pga för få användare inlagda
-            // skapa en bättre lösning för att kunna generera ändå
-            // nu läggs pass ut på de användare som finns och visar meddelande att inte kunde tilldela alla pass
-            if (!selectedUser) {
-                // throw new Error(`Kunde inte tilldela slot ${slot + 1} för passet ${task.taskType} den ${task.date.toDateString()}.`);
-                console.warn(`Kunde inte hitta användare till ${task.taskType} ${task.date.toDateString()}`);
-                continue;
+                assignedUserForTask.push(selectedUser.id);
             }
-
-            const userIndex = userPool.findIndex(owner => owner.id === selectedUser.id);
-
-            if (userIndex === -1) {
-                throw new Error('Internt fel: Hittade inte den valda ägaren.');
-            }
-
-            userPool[userIndex].tasksLeft -= 1;
-            userPool[userIndex].lastTaskDate = task.date;
-
-            assignedUserForTask.push(selectedUser.id);
-        }
+        } 
 
         scheduleEntries.push({
             date: task.date,
