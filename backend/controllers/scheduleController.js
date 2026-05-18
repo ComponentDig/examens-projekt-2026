@@ -1,4 +1,6 @@
 import { buildTaskPool, generateSchedule, getScheduleByMonth } from "./scheduleGeneratorController.js";
+import Schedule from "../models/scheduleEntry.js";
+
 
 // tar emot år och månad
 // skapar uppgifter för månaden och fördelar mellan användare
@@ -40,6 +42,30 @@ export const getScheduleController = async (req, res) => {
         return res.status(200).json(schedule);
     } catch (error) {
         console.error('Fel upptäckt', error);
+        return res.status(500).json({ message: error.message || 'Internt serverfel' });
+    }
+};
+
+export const updateScheduleEntry = async (req, res) => {
+    const { id } = req.params;
+    const { userId } = req.body;
+
+    try {
+        const updatedUsers = (userId && userId !== "remove_user") ? [userId] : [];
+
+        const updatedEntry = await Schedule.findByIdAndUpdate(
+            id,
+            { users: updatedUsers },
+            { new: true }
+        ).populate('users', 'firstName lastName');
+
+        if (!updatedEntry) {
+            return res.status(404).json({ message: "Passet hittades inte" });
+        }
+
+        return res.status(200).json({ success: true, entry: updatedEntry });
+    } catch (error) {
+        console.error('Fel vid uppdateringen', error);
         return res.status(500).json({ message: error.message || 'Internt serverfel' });
     }
 };

@@ -103,6 +103,17 @@ class authController {
         }
     }
 
+    static async getAllUsers(req, res) {
+        try {
+            const users = await User.find({}, 'firstName lastName role isActive');
+
+            res.status(200).json(users);
+        } catch (error) {
+            console.error("Fel vid hämtning av användare", error);
+            res.status(500).json({ message: "Kunde inte hämta användare" });
+        }
+    }
+
     // Tog hjälp av gemini för att påbörja flödet med invite-only registrering.
     // Promtade "Kan du vägleda mig att skapa funktion för invite-only registrering där 
     // admin ska skicka en inbjudningslänk för att en användare ska kunna registrera sig? Utan att skicka hela kodlösningen"    

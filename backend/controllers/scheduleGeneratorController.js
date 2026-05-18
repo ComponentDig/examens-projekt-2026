@@ -24,6 +24,7 @@ export function buildTaskPool(year, month) {
         const isSatOrSun = isWeekend(currentDay);
         const isHoliday = holiday.isHoliday(currentDay);
 
+        // Utsläpp ska visas varje dag så att admin kan lägga in manuellt måndag-fredag helgfria dagar
         taskPool.push({ date: currentDay, taskType: 'Insläpp', slots: 2, isManual: false });
         taskPool.push({ date: currentDay, taskType: 'Kvällsfodring', slots: 1, isManual: false });
 
@@ -53,6 +54,12 @@ export async function generateSchedule(taskPool, year, month) {
 
     for (const task of taskPool) {
         const assignedUserForTask = [];
+        // users sparas tomt för utsläpp så att admin kan lägga in manuellt på vardagar
+        if (task.isManual) {
+            scheduleEntries.push({ date: task.date, taskType: task.taskType, users: [] });
+
+            continue;
+        }
 
         for (let slot = 0; slot < task.slots; slot++) {
             let horseOwners = userPool.filter(horseOwner => {

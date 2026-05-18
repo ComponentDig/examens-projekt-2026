@@ -14,6 +14,7 @@ router.get('/profile', protect, authController.getProfile);
 
 // Admin routes
 // router.post('/admin-create', protect, admin, authController.adminCreateUser);
+router.get('/users', protect, admin, authController.getAllUsers)
 router.post('/invite', authController.createInvite);
 router.get('/verify-invite/:token', authController.verifyInvite);
 router.post('/complete-registration', authController.completeRegistration);
