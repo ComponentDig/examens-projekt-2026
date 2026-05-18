@@ -35,12 +35,12 @@ Börja med att starta backend - servern.
    ```
 2. **Installera alla nödvändiga paket:**
    Sedan skriver du detta kommando i din terminal för att installera nödvändiga paket pch tryck Enter. Det kan ta en liten stund.
-   ````bash
+   ```bash
         npm install
    ```
 3. **Starta servern**
    Nu ska du starta servern, det gör du genom att i terminalen skriva:
-   ````bash
+   ```bash
         nodemon server
    ``` 
 I terminalen komm du att se "Server is running on port XXXX" Låt terminalen vara igång. Stäng den inte!
@@ -63,7 +63,9 @@ Här ska vi också installera nödvändiga paket:
 När alla nödvändiga paket är installerade kan du dra igång sidan! Det gör du genom att i terminalen för frontend skriva:
 ```bash
     npm run dev
-``` 
+```
+
+---
 
 # Översiktig beskrivning
 Hemma på Tuna* är en webbplattform designad för att förenkla administrationen inom ett stall. Där admin har ett lätt verktyg för att generera stallschema månad för månad. 
