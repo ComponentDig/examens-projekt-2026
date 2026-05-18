@@ -61,7 +61,7 @@ Här ska vi också installera nödvändiga paket:
 ```
 
 När alla nödvändiga paket är installerade kan du dra igång sidan! Det gör du genom att i terminalen för frontend skriva:
-````bash
+```bash
     npm run dev
 ``` 
 
