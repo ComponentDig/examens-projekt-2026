@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import AdminViewSchedule from "../components/AdminViewSchedule";
 
-
-
 // page för admin för att generera schema för en specifik månad
 // admin kan välja vilken månad och vilket år och sedan trycka på en knapp
 // för att generera schemat
@@ -12,6 +10,7 @@ const AdminSchedulePage = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(null);
     const [schedule, setSchedule] = useState([]);
+    const [users, setUsers] = useState([]);
 
     const fetchSchedule = useCallback(async () => {
         setLoading(true);
@@ -34,9 +33,28 @@ const AdminSchedulePage = () => {
         }
     }, [month, year]);
 
+    const fetchUsers = useCallback(async () => {
+        try {
+            const token = localStorage.getItem('userToken');
+
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/users`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                const usersArray = Array.isArray(data) ? data : data.users || data.data || [];
+                setUsers(usersArray.filter(u => u.role === 'user' && u.isActive));
+            }
+        } catch (error) {
+            console.error("Kunde inte hämta användare", error);
+        }
+    }, []);
+
     useEffect(() => {
         fetchSchedule();
-    }, [fetchSchedule]);
+        fetchUsers();
+    }, [fetchSchedule, fetchUsers]);
 
 
     const handleGenerate = async () => {
@@ -69,6 +87,33 @@ const AdminSchedulePage = () => {
             setLoading(false);
         }
     };
+
+    const handleUpdatedTask = async (entryId, userId, action = "ADD") => {
+        const token = localStorage.getItem('userToken');
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/schedule/${entryId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ userId, action })
+            });
+
+            if (!response.ok) throw new Error("Kunde inte uppdatera passet");
+
+            const data = await response.json();
+
+            if (data.success) {
+                setSchedule(prevSchedule => prevSchedule.map(entry => entry._id === entryId ? data.entry : entry));
+            }
+        } catch (error) {
+            alert("Det gick inte att spara ändringen");
+            console.error(error);
+        }
+    };
+
 
     return (
         <>
@@ -104,7 +149,7 @@ const AdminSchedulePage = () => {
                         </div>
                     )}
                 </div>
-                <AdminViewSchedule schedule={schedule} loading={loading} />
+                <AdminViewSchedule schedule={schedule} loading={loading} users={users} onUpdatedTask={handleUpdatedTask} />
             </div>
         </>
     )
