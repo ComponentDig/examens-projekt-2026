@@ -5,6 +5,19 @@ const bookingSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    guestName: {
+        type: String,
+        required: true,
+    },
+    guestPhone: {
+        type: Number,
+        required: true,
+    },
+    guestEmail: {
+        type: String,
+        match: [/^\S+@\S+\.\S+$/, "Invalid email format"],
+        required: true
+    },
     date: {
         type: Date,
         required: true
