@@ -122,13 +122,13 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - [ ] Hantera ett genereringsverktyg för stallschema
 - [ ] Hantera bokningar för ridbanan inför träningar och tävlingar
 - [ ] Hantera hur en besökare bokar ridbanan utan inloggning
-- [ ] Ha relevant information om stallet - så som vad som händer - tävling/träning - information till hästägare - spån, veterinär, hovslagare som kommer
-- [ ] Ha information till alla inackorderade hästägare
+- [ ] Ha relevant information om stallet - så som vad som händer - tävling/träning
 
 ### En användare ska kunna:
 - [x] Registrera sig/ logga in / logga ut 
 - [ ] Boka ridbanan
 - [ ] Kolla stallschema
+- [ ] Använda ett formulär för glömt lösenord
 
 ### En besökare (utan inloggning) ska kunna:
 - [ ] Boka ridbanan
@@ -140,11 +140,11 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - [x] Kunna lägga till hästägare för stallschema
 - [ ] Använda schemagenereraren för stalltjänst
 
-## Bör
+## Utmaning
+- [x] Ska publiceras på en publik webbbplats
+- [ ] Påminnelser för olika insatser som hästägare behöver göra t.ex. täcke på/av
+- [ ] Ägare ska kunna lägga in stam på sin häst
 
-### En användare ska kunna:
-- [ ] Använda ett formulär för glömt lösenord
-- [ ] Redigera sina inloggningsuppgifter
 - [ ] Göra stallpassbyten med andra hästägare
 - [ ] Skicka meddelanden till andra hästägare
 - [ ] Kunna publicera inlägg som syns för hästägare
@@ -152,11 +152,6 @@ Det är jag själv som är beställare utifrån min nyfikenhet för hur man kan 
 - [ ] Ta bort inlägg som användaren har skrivit
 - [ ] Kommentera på inlägg
 - [ ] Gilla inlägg
-
-## Utmaning
-- [x] Ska publiceras på en publik webbbplats
-- [ ] Påminnelser för olika insatser som hästägare behöver göra t.ex. täcke på/av
-- [ ] Ägare ska kunna lägga in stam på sin häst
 
 # Tekniker och programspråk
 - React
