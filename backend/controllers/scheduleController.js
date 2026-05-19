@@ -2,25 +2,27 @@ import { buildTaskPool, generateSchedule, getScheduleByMonth } from "./scheduleG
 import Schedule from "../models/scheduleEntry.js";
 
 
-// tar emot år och månad
-// skapar uppgifter för månaden och fördelar mellan användare
 export const triggerScheduleGenerator = async (req, res) => {
+    // tar emot år och månad 
+    // för att veta när schemas ska skapar för - vilken månad och år
     const { year, month } = req.body;
 
     try {
+        // skapar en lista med alla pass för månaden
         const taskPool = buildTaskPool(year, month);
 
+        // genererar schemat - fördelas mellan användarna som är registrerade
         const result = await generateSchedule(taskPool, year, month);
 
         res.status(201).json(result);
 
+        // visar fel om genereringen misslyckades
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
 
 // hämtar schemat för en viss månad
-// koll att år och månad är giltigt och specificerat
 // hämtar från databasen och returnerar
 export const getScheduleController = async (req, res) => {
     const { year, month } = req.query;
@@ -28,6 +30,7 @@ export const getScheduleController = async (req, res) => {
     const parsedYear = Number(year);
     const parsedMonth = Number(month);
 
+    // kollar om månad och år är giltiga nummer
     if (!parsedYear || !parsedMonth) {
         return res.status(400).json({ message: 'År och månad måste specifieras' });
     }
@@ -35,6 +38,7 @@ export const getScheduleController = async (req, res) => {
     try {
         const schedule = await getScheduleByMonth(parsedYear, parsedMonth);
 
+        // visar meddelande om inget schema finns
         if (!schedule || schedule.length === 0) {
             return res.status(404).json({ message: `Inget schema hittades för ${year}-${month}` });
         }
@@ -46,14 +50,18 @@ export const getScheduleController = async (req, res) => {
     }
 };
 
+// hade lite strul med att få till detta, tog hjälp av Gemini för att lägga till action
 export const updateScheduleEntry = async (req, res) => {
+    // hämtar id och userId
     const { id } = req.params;
     const { userId, action } = req.body;
 
     try {
 
+        // objekt för att updatera schemat
         let updatedQuery = {};
 
+        // om action är "remove" ska användaren tas bort från valda passet
         if (action === "remove") {
             updatedQuery = { $pull: { users: userId } };
         }
@@ -64,6 +72,7 @@ export const updateScheduleEntry = async (req, res) => {
             updatedQuery = { $addToSet: { users: userId } };
         }
 
+        // uppdaterar schema
         const updatedEntry = await Schedule.findByIdAndUpdate(
             id,
             updatedQuery,

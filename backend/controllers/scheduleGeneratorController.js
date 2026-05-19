@@ -25,14 +25,15 @@ export function buildTaskPool(year, month) {
         const isHoliday = holiday.isHoliday(currentDay);
 
         // Utsläpp ska visas varje dag så att admin kan lägga in manuellt måndag-fredag helgfria dagar
-        taskPool.push({ date: currentDay, taskType: 'Insläpp', slots: 2, isManual: false });
-        taskPool.push({ date: currentDay, taskType: 'Kvällsfodring', slots: 1, isManual: false });
 
         if (isSatOrSun || isHoliday) {
             taskPool.push({ date: currentDay, taskType: 'Utsläpp', slots: 1, isManual: false });
         } else {
             taskPool.push({ date: currentDay, taskType: 'Utsläpp', slots: 1, isManual: true });
         }
+        taskPool.push({ date: currentDay, taskType: 'Insläpp', slots: 2, isManual: false });
+        taskPool.push({ date: currentDay, taskType: 'Kvällsfodring', slots: 1, isManual: false });
+
     }
 
     return taskPool;
@@ -118,7 +119,7 @@ export async function generateSchedule(taskPool, year, month) {
 
                 assignedUserForTask.push(selectedUser.id);
             }
-        } 
+        }
 
         scheduleEntries.push({
             date: task.date,

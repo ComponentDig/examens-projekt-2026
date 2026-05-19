@@ -3,11 +3,15 @@ import Invitation from "../models/Invitation.js";
 import jwt from "jsonwebtoken";
 import crypto from 'crypto';
 
+// skapa en JWT-token för användare vid inloggning
 const generateToken = (user) => {
 
+    // hämtar JWT_SECRET från .env 
+    // har en giltighetstid på 24 timmar
     const secret = process.env.JWT_SECRET;
     const expiresIn = process.env.JWT_EXPIRES_IN || '24h';
 
+    // Om JWT_SECRET saknas så visas ett fel
     if (!secret) {
         throw new Error("Fel, JWT_SECRET");
     }
@@ -71,7 +75,7 @@ class authController {
                 return res.status(401).json({ message: "Felaktig e-post eller lösenord" });
             }
 
-            // genererar ett token
+            // skapar en token när inloggningen lyckas
             res.json({
                 message: "Inloggning lyckades",
                 token: generateToken(user),
@@ -105,6 +109,7 @@ class authController {
 
     static async getAllUsers(req, res) {
         try {
+            // hämtar alla användare
             const users = await User.find({}, 'firstName lastName role isActive');
 
             res.status(200).json(users);
@@ -121,16 +126,22 @@ class authController {
     // skapar en inbjudning för att registrera sig som hästägare
     static async createInvite(req, res) {
         try {
+            // hämtar e-post och antal hästar från req
+            // för att kunna få rätt email osv till inbjudningslänken
             const { email, horses } = req.body;
 
+            // skapar en token för inbjudningslänken så att
+            // kopplas till användaren mejl i admin så bara den kan använda länken
             const token = crypto.randomBytes(20).toString('hex');
 
+            // inbjudan sparas i databasen
             await Invitation.create({
                 email,
                 token,
                 horses
             });
 
+            // använder token som param, används senare i frontend för att kolla om det är rätt inbjudan
             const inviteLink = `${process.env.FRONTEND_URL}/register?token=${token}`;
 
             res.status(201).json({ inviteLink });
@@ -140,11 +151,10 @@ class authController {
         }
     }
 
-    // verifiera en inbjudan baserat på token
-    // hämtar token och kolla om det finns en giltig inbjudan
-    // om ok returneras det
-    // om inte ok kommer ett felmeddelande visas
     static async verifyInvite(req, res) {
+        // verifiera en inbjudan baserat på token
+        // hämtar token och kolla om det finns en giltig inbjudan
+        // isUsed är false så att inte länken kan användas fler gånger
         try {
             const { token } = req.params;
             const invite = await Invitation.findOne({
@@ -152,6 +162,7 @@ class authController {
                 isUsed: false,
             });
 
+            // visar fel om injbudan är ogiltig 
             if (!invite) {
                 return res.status(400).json({ message: "Inbjudan är ogiltig" });
             }
@@ -164,14 +175,10 @@ class authController {
 
     // för att slutföra registreringen
     // tar emot token och användaruppgifter
-    // kollar efter en giltig inbjudan
-    // när användaren är registrerad så visas inbjudan som använd
-    // felmeddelande visas om registrering inte lyckades
     static async completeRegistration(req, res) {
-        console.log("Rätt??");
         try {
             const { token, firstName, lastName, password } = req.body;
-
+            // kollar efter en giltig inbjudan
             const invite = await Invitation.findOne({ token, isUsed: false });
             if (!invite) {
                 return res.status(400).json({ message: "Inbjudan hittades inte" });
@@ -186,11 +193,13 @@ class authController {
                 role: 'user'
             });
 
+            // när användaren är registrerad så visas inbjudan som använd
             invite.isUsed = true;
             await invite.save();
 
             res.status(201).json({ message: "Konto skapat!", userId: newUser._id });
         } catch (error) {
+            // felmeddelande visas om registrering inte lyckades
             console.error(error);
             res.status(500).json({ message: "Kunde inte slutföra registrering" });
         }
