@@ -15,7 +15,8 @@ import AdminSchedulePage from './admin/pages/AdminSchedulePage';
 import AdminUserPage from './admin/pages/AdminUserPage';
 import AboutUs from './pages/AboutUs';
 import BookingPage from './pages/BookingPage';
-
+import UserProfilePage from './pages/UserProfilePage';
+import UserProtectedRoute from './components/UserProtectedRoute';
 
 function App() {
 
@@ -33,6 +34,11 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
 
+        <Route path='/profile' element={
+          <UserProtectedRoute>
+            {( user, onLogout ) => <UserProfilePage user={user} onLogout={onLogout} />}
+          </UserProtectedRoute>
+        } />
 
         {/* Admin routes */}
         <Route path='/admin/login' element={<AdminLogin />} />
