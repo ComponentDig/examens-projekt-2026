@@ -10,6 +10,15 @@ Först måste du se till att ha node.js installerat för att kunna starta igång
 2. **Ladda ner en kodredigerare:**
    Ladda ner **Visual Studio Code (VS Code)** från [code.visualstudio.com](http://code.visualstudio.com/) för att lättare kunna se och hantera filerna.
 
+**När du har installerat nodejs och vs code kan du nu klona ner repot. Såhär gör du det:**
+1. Start VS Code. Öppna en terminal i VS Code genom att klicka på **Terminal** i menyn högst upp och välj **New Terminal**
+   Det kommer dyka upp en ruta undertill.
+2. Välj *File* -> *Open Folder* och öppna den mapp där du vill att projektet ska ligga.
+3. Skriv följande kommando i terminalen och tryck på enter:
+   ```bash
+      git clone https://github.com/ComponentDig/examens-projekt-2026.git
+   ```
+
 ---
 
 ## Steg 2: Öppna rätt mappar
@@ -19,9 +28,8 @@ Det här projektet är uppdelat i två delar:
 * **frontend** (Det visuella - det som du ser i webbläsarfönstret)
   
 För att starta projektet behöver du öppna två olika terminalfönster. Såhär gör du:
-1. Öppna **VS Code**
-2. Välj *File* -> *Open Folder* och öppna den mapp där projektet ligger.
-3. Öppna en terminal i VC Code genom att klicka på **Terminal** i menyn högst upp och välj **New Terminal**
+1. Välj *File* -> *Open Folder* och öppna den mapp där projektet ligger.
+2. Öppna en terminal i VS Code genom att klicka på **Terminal** i menyn högst upp och välj **New Terminal**
 
 ---
 
@@ -43,9 +51,34 @@ Börja med att starta backend - servern.
    ```bash
         nodemon server
    ``` 
+---
+
+## Steg 4: Databas och miljövariabler
+
+Det här projektet använder **MongoDB** som databas för att spara all information. För att din dator ska kunna prata med databasen måste du skapa en hemlig fil som heter `.env`
+I den filen sparas lösenord och anslutningslänkar, det är inget som ska vara synlig på GitHub.
+
+### 1 Skapa filen
+1. Titta i sidomenyn i VS Code och öppna upp mappen som heter **backend**
+2. Högerklicka på mappen `backend` och välj **New File** - Ny Fil
+3. Döp filen till exakt. `.env` - viktigt att inte glömma punkten i början
+4. Öppna `.env` filen du precis skapade genom att klicka på den. Klistra in dessa rader:
+
+   ```env
+      # Porten som som backend-servern ska köras på - oftast 5000 eller 3000
+      PORT=5000
+
+      # Din anslutningslänk till MongoDB - ser ofta ut såhär mongodb+srv://<username>:<password>@cluster.xxxx.mongodb.net/din_databas_namn
+      # MONGO_URI=your_mongodb_connection_url
+
+      DB_USER=mitt_användarnamn
+      DB_PASSWORD=mitt_lösenord
+
+   ```
+
 I terminalen komm du att se "Server is running on port XXXX" Låt terminalen vara igång. Stäng den inte!
 
-## Steg 4: Starta frontenden
+## Steg 5: Starta frontenden
 
 Först måste du öppna en ny terminal. Det gör via plustecknet som finns uppe till höger i terminalfönstert i VS Code.
 När en ny terminal är öppnad behöver du navigera till frontend mappen på samma sätt som för backend.
