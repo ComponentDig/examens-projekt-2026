@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BookingCalender from "../components/BookingCalender";
+
 
 // sidan för att boka ridbanan
 
@@ -7,6 +8,30 @@ function BookingPage() {
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [bookingType, setBookingType] = useState('timme');
+    const [bookings, setBookings] = useState([]);
+
+    useEffect(() => {
+
+        const fetchBookings = async () => {
+
+            try {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    setBookings(data);
+                }
+
+            } catch (error) {
+                console.error("Kunde inte hämta bokning", error);
+            }
+        }
+
+        fetchBookings();
+
+    }, [])
+
+
 
     return (
         <>
@@ -68,7 +93,7 @@ function BookingPage() {
                         {/* kalendervy */}
                         {/*  */}
                         <div className="w-full md:w-2/3 space-y-8">
-                            <BookingCalender selectedDate={selectedDate} onDateChange={setSelectedDate} />
+                            <BookingCalender selectedDate={selectedDate} onDateChange={setSelectedDate} bookings={bookings}/>
                             <div className="p-8 rounded-2xl border shadow-md">
                                 <h4>Bokning för: {selectedDate.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' })}</h4>
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 // man kan välja timme, halvdag eller heldag
 // lägga till vilka timmar man kan boka - direkt via kalendern eller via formuläret där man slutför bokningen?
 
-function BookingCalender({ selectedDate, onDateChange }) {
+function BookingCalender({ selectedDate, onDateChange, bookings }) {
     const [viewDate, setViewDate] = useState(new Date());
 
     const year = viewDate.getFullYear();
@@ -20,6 +20,21 @@ function BookingCalender({ selectedDate, onDateChange }) {
     const calenderGrid = [];
     for (let i = 0; i < startDay; i++) calenderGrid.push(null);
     for (let d = 1; d <= daysInMonth; d++) calenderGrid.push(new Date(year, month, d));
+
+
+    const getBookingStatusForDate = (date) => {
+
+        if (!date) return [];
+
+        const calenderDateString = date.toLocaleDateString('sv-SE');
+
+        const matches = bookings.filter(booking => {
+            return new Date(booking.date).toLocaleDateString('sv-SE') === calenderDateString;
+        });
+
+        return matches;
+
+    }
 
     const changeMonth = (offset) => {
         setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + offset, 1));
@@ -45,13 +60,46 @@ function BookingCalender({ selectedDate, onDateChange }) {
                 </div>
 
                 <div className="grid grid-cols-7 gap-2">
-                    {calenderGrid.map((date, i) => (
-                        <div key={i} className="aspect-square">
-                            {date && (
-                                <button onClick={() => onDateChange(date)} className={`w-full h-full rounded-xl text-sm font-semibold transition-all ${selectedDate?.toDateString() === date.toDateString() ? 'bg-secondarycolor shadow-md scale-105' : 'hover:bg-gray-100'}`}>{date.getDate()}</button>
-                            )}
-                        </div>
-                    ))}
+                    {calenderGrid.map((date, i) => {
+
+                        const dayBookings = getBookingStatusForDate(date);
+
+                        let bgClass = 'bg-white hover:bg-gray-100';
+                        let isBlocked = false;
+
+                        if (dayBookings.length > 0) {
+                            const hasHeldag = dayBookings.some(b => b.bookingType === 'heldag');
+
+                            const hasHalvdag = dayBookings.some(b => b.bookingType === 'halvdag');
+
+                            if (hasHeldag) {
+                                bgClass = 'bg-red-100 border border-red-200 text-red-700 font-bold';
+                                isBlocked = true;
+                            }
+                            else if (hasHalvdag) {
+                                bgClass = 'bg-orange-100 border border-orange-200 text-orange-700 font-semibold';
+                            }
+                            else {
+                                bgClass = 'bg-yellow-50 border border-yellow-200 text-yellow-800';
+                            }
+                        }
+                        const isSelected = selectedDate?.toDateString() === date?.toDateString();
+
+                        return (
+                            <div key={i} className={`aspect-square rounded-xl transition-all ${bgClass}`}>
+                                {date && (
+                                    <button
+                                        disabled={isBlocked}
+                                        onClick={() => onDateChange(date)}
+                                        className={`w-full h-full rounded-xl text-sm font-semibold ${isBlocked ? 'cursor-not-allowed' : ''}`}
+                                    >
+                                        {date.getDate()}
+                                    </button>
+                                )}
+                            </div>
+                        )
+                    })}
+
                 </div>
             </div>
         </>
