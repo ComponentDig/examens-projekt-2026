@@ -55,52 +55,64 @@ const UserProfilePage = ({ user, onLogout }) => {
         }
     };
 
-    return (
+  return (
         <>
-            <div className="min-h-screen p-4 md:p-8 space-y-6 bg-primarybgcolor">
+            <div className="min-h-screen bg-primarybgcolor font-primary px-4 py-8 md:py-12 md:px-8">
                 <div className="max-w-4xl mx-auto space-y-6">
 
-                    <div className="">
+                    <div className="bg-white border border-secondarycolor rounded-2xl p-6 shadow-md shadow-textprimary/5 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
-                            <h1 className="">Hej {user.firstName}!</h1>
-                            <p>{user.email}</p>
+                            <h1 className="font-secondary text-5xl text-textprimary mb-1">Hej {user.firstName}!</h1>
+                            <p className="text-sm text-gray-500">{user.email}</p>
                         </div>
 
-                        <div className="">
-                            <div className="">
-                                <span className="">Dina pass:</span>
-                                <strong className="">{user.requiredTasks || 0} st kvar</strong>
+                        <div className="flex flex-wrap items-center justify-between md:justify-end gap-4 border-t md:border-t-0 pt-4 md:pt-0 border-secondarycolor/40">
+                            <div className="bg-primarybgcolor border border-secondarycolor rounded-xl px-4 py-2 text-sm flex flex-col justify-center">
+                                <span className="text-gray-600 block text-xs uppercase font-bold tracking-wider mb-0.5">Dina pass:</span>
+                                <strong className="text-textprimary text-base">{user.requiredTasks || 0} st kvar</strong>
                             </div>
 
-                            <button onClick={onLogout} className="">Logga ut</button>
+                            <button 
+                                onClick={onLogout} 
+                                className="border border-textprimary text-textprimary hover:bg-textprimary hover:text-primarybgcolor active:scale-[0.98] font-bold px-5 py-2.5 rounded-xl text-sm transition-all tracking-wide h-fit"
+                            >
+                                Logga ut
+                            </button>
                         </div>
                     </div>
 
-                    <div className="">
-                        <div>
-                            <h2 className="">Stallschema</h2>
-                            <p className="">Här ser du månadens alla inplanerade pass</p>
-                        </div>
+               
+                    <div className="bg-white border border-secondarycolor rounded-2xl p-6 shadow-md shadow-textprimary/5 space-y-6">
 
-                        <div className="">
-                            <button onClick={handlePrevMonth} className="">&larr;</button>
-                            <div className="">
-                                <select value={month} onChange={(e) => setMonth(Number(e.target.value))} className="">
-                                    {Array.from({ length: 12 }, (__, i) => (
-                                        <option key={i + 1} value={i + 1}>
-                                            {new Date(0, i).toLocaleDateString('sv-SE', { month: 'long' })}
-                                        </option>
-                                    ))}
-                                </select>
-                                <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} className="" />
+                        <div className="border-b border-secondarycolor/40 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div>
+                                <h2 className="text-xl font-bold text-textprimary">Stallschema</h2>
+                                <p className="text-xs sm:text-sm text-gray-500">Här ser du månadens alla inplanerade pass</p>
                             </div>
 
-                            <button onClick={handleNextMonth} className="">&rarr;</button>
+                            <div className="flex items-center gap-2 self-start sm:self-center">
+                                <button onClick={handlePrevMonth} className="w-10 h-10 bg-primarybgcolor border border-secondarycolor hover:border-textprimary text-textprimary rounded-xl flex items-center justify-center font-bold text-lg transition-colors active:scale-95">&larr;</button>
+                                <div className="flex items-center bg-primarybgcolor/50 border border-secondarycolor rounded-xl px-2 h-10">
+                                    <select value={month} onChange={(e) => setMonth(Number(e.target.value))} className="bg-transparent text-sm font-bold text-gray-700 focus:outline-none capitalize cursor-pointer pr-1">
+                                        {Array.from({ length: 12 }, (__, i) => (
+                                            <option key={i + 1} value={i + 1}>
+                                                {new Date(0, i).toLocaleDateString('sv-SE', { month: 'long' })}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} className="bg-transparent text-sm font-bold text-gray-700 w-16 focus:outline-none text-center border-l border-secondarycolor ml-1" />
+                                </div>
+
+                                <button onClick={handleNextMonth} className="w-10 h-10 bg-primarybgcolor border border-secondarycolor hover:border-textprimary text-textprimary rounded-xl flex items-center justify-center font-bold text-lg transition-colors active:scale-95">&rarr;</button>
+                            </div>
                         </div>
 
+                      
+                        <div className="pt-2 px-2">
+                            <UserViewSchedule schedule={schedule} loading={loadingSchedule} />
+                        </div>
                     </div>
 
-                    <UserViewSchedule schedule={schedule} loading={loadingSchedule} />
                 </div>
             </div>
         </>
