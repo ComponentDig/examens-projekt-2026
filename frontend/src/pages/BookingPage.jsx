@@ -11,6 +11,10 @@ function BookingPage() {
     const [bookingType, setBookingType] = useState('timme');
     const [bookings, setBookings] = useState([]);
     const [selectedHour, setSelectedHour] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
 
     useEffect(() => {
 
@@ -130,7 +134,7 @@ function BookingPage() {
 
 
                                 <button
-                                    onClick={() => alert(`Bokning påbörjad för ${selectedDate.toDateString()} - Typ: ${bookingType}`)}
+                                    onClick={() => setIsModalOpen(true)}
                                     className="w-full bg-secondarycolor text-textprimary py-4 rounded-xl mt-8 shadow-md transition-all tracking-widest hover:brightness-95 active:scale-[0.98]">
                                     Gå vidare till bokning
                                 </button>
@@ -138,6 +142,37 @@ function BookingPage() {
                         </div>
                     </div>
                 </div>
+
+                {isModalOpen && (
+                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                        <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
+                            <button onClick={() => setIsModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+
+                            <h3 className="text-2xl font-bold mb-4">Slutför bokning</h3>
+                            <p className="text-sm text-gray-500 mb-6">Du håller på att boka den {selectedDate.toLocaleDateString('sv-SE')}.</p>
+
+                            <form onSubmit={(e) => { e.preventDefault(); alert("Bokad!"); }} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1">Namn</label>
+                                    <input type="text" placeholder="för- och efternamn" value={name} onChange={(e) => setName(e.target.value)} required className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-secondarycolor" />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1">E-post</label>
+                                    <input type="email" placeholder="E-post" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-secondarycolor" />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1">Telefonnummer</label>
+                                    <input type="tel" placeholder="Telefonnummer" value={phone} onChange={(e) => setPhone(e.target.value)} required className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-secondarycolor" />
+                                </div>
+
+                                <button type="submit" className="w-full bg-secondarycolor text-primarybgcolor py-3 rounded-xl font-semibold mt-4 shadow-md hover:brightness-95 transition-all">Bekräfta bokning</button>
+                            </form>
+                        </div>
+                    </div>
+                )}
+
             </div>
 
         </>
