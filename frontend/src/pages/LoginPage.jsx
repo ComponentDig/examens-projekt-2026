@@ -39,45 +39,53 @@ const LoginPage = () => {
 
     return (
         <>
-        <div className="">
-            <div className="">
-                <h2 className="">Logga in</h2>
-                {error && (
-                    <div>
-                        {error}
-                    </div>
-                )}
+            <div className="min-h-screen bg-primarybgcolor font-primary flex flex-col items-center justify-center px-4 py-8 sm:py-12 md:py-16">
 
-                <form onSubmit={handleLogin} className="">
-                    <div>
-                        <label className="">E-post</label>
-                        <input 
-                        type="email"
-                        name="email"
-                        required
-                        className=""
-                        value={formData.email}
-                        onChange={handleChange}
-                        />
-                    </div>
+                <div className="text-center mb-6 sm:mb-8 w-full max-w-md">
+                    <h1 className="font-secondary text-4xl sm:text-5xl text-textprimary mb-2 drop-shadow-sm select-none">Stallportalen</h1>
+                </div>
 
-                    <div>
-                        <label className="">Lösenord</label>
-                        <input 
-                        type="password"
-                        name="password"
-                        required
-                        className=""
-                        value={formData.password}
-                        onChange={handleChange}
-                        />
-                    </div>
+                <div className="bg-white border border-secondarycolor rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-xl shadow-textprimary/5">
+                    <h2 className="text-xl sm:text-2xl font-bold text-textprimary text-center mb-6">Logga in</h2>
+                    {error && (
+                        <div className="mb-5 p-3 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-medium text-center break-word">
+                            {error}
+                        </div>
+                    )}
 
-                    <button type="submit" className="">Logga in</button>
-                </form>
+                    <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
+                        <div>
+                            <label className="block text-xs font-bold uppercase tracking-wider text-textprimary mb-1.5 ml-1">E-post</label>
+                            <input
+                                type="email"
+                                name="email"
+                                required
+                                className="w-full bg-primarybgcolor/40 border border-secondarycolor rounded-xl px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-textprimary focus:ring-2 focus:ring-textprimary/10 transition-all text-gray-700 appearance-none"
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
+                        </div>
 
+                        <div>
+                            <label className="block text-xs font-bold uppercase tracking-wider text-textprimary mb-1.5 ml-1">Lösenord</label>
+                            <input
+                                type="password"
+                                name="password"
+                                required
+                                className="w-full bg-primarybgcolor/40 border border-secondarycolor rounded-xl px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-textprimary focus:ring-2 focus:ring-textprimary/10 transition-all text-gray-700 appearance-none"
+                                value={formData.password}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <a href="#" className="text-xs text-textprimary/70 hover:text-textprimary transition-colors active:text-textprimary">
+                            Glömt lösenord?
+                        </a>
+
+                        <button type="submit" className="w-full bg-textprimary text-primarybgcolor font-bold py-3.5 rounded-xl shadow-md shadow-textprimary/20 hover:brightness-95 active:scale-[0.98] transition-all tracking-wider mt-2 text-base sm:text-sm touch-manipulation">Logga in</button>
+                    </form>
+
+                </div>
             </div>
-        </div>
         </>
     )
 
