@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import BookingCalender from "../components/BookingCalender";
 
 
-// sidan för att boka ridbanan
+const availableHours = ["08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00"];
 
+// sidan för att boka ridbanan
 function BookingPage() {
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [bookingType, setBookingType] = useState('timme');
     const [bookings, setBookings] = useState([]);
+    const [selectedHour, setSelectedHour] = useState(null);
 
     useEffect(() => {
 
@@ -31,7 +33,12 @@ function BookingPage() {
 
     }, [])
 
+    const formattedSelectedDate = selectedDate.toLocaleDateString('sv-SE');
 
+    const takenHours = bookings.filter(booking => {
+        return new Date(booking.date).toLocaleDateString('sv-SE') === formattedSelectedDate && booking.bookingType === 'timme';
+    })
+        .map(booking => booking.startTime);
 
     return (
         <>
@@ -91,16 +98,36 @@ function BookingPage() {
                         </div>
 
                         {/* kalendervy */}
-                        {/*  */}
                         <div className="w-full md:w-2/3 space-y-8">
-                            <BookingCalender selectedDate={selectedDate} onDateChange={setSelectedDate} bookings={bookings}/>
+                            <BookingCalender selectedDate={selectedDate} onDateChange={setSelectedDate} bookings={bookings} />
                             <div className="p-8 rounded-2xl border shadow-md">
                                 <h4>Bokning för: {selectedDate.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' })}</h4>
 
                                 <div className="flex flex-wrap gap-3">{['Timme', 'Halvdag', 'Heldag'].map(type => (
-                                    <button key={type} onClick={() => setBookingType(type.toLowerCase())} className={`px-6 py-2 rounded-full border-2 transition-all font-semibold ${bookingType === type.toLowerCase() ? 'border-secondarycolor bg-secondarycolor/10' : 'border-gray-100 hover:border-gray-300'}`}>{type}</button>
+                                    <button key={type} onClick={() => { setSelectedHour(null); setBookingType(type.toLowerCase()) }} className={`px-6 py-2 rounded-full border-2 transition-all font-semibold ${bookingType === type.toLowerCase() ? 'border-secondarycolor bg-secondarycolor/10' : 'border-gray-100 hover:border-gray-300'}`}>{type}</button>
                                 ))}
                                 </div>
+
+                                {bookingType === 'timme' && (
+                                    <div className="grid grid-cols-4 gap-2 mt-4">
+                                        {availableHours.map(hour => {
+                                            const isTaken = takenHours.includes(hour);
+                                            const isSelected = selectedHour === hour;
+
+                                            let buttonClass = 'border-gray-200 hover:border-gray-400';
+
+                                            if (isTaken) {
+                                                buttonClass = 'bg-gray-100 text-gray-400 line-through cursor-not-allowed';
+                                            } else if (isSelected) {
+                                                buttonClass = 'border-secondarycolor bg-secondarycolor/20 font-bold';
+                                            }
+                                            return (
+                                                <button key={hour} disabled={isTaken} onClick={() => setSelectedHour(hour)} className={`py-2 text-sm font-semibold rounded-lg border ${buttonClass}`}>{hour}</button>
+                                            )
+                                        })}
+                                    </div>
+                                )}
+
 
                                 <button
                                     onClick={() => alert(`Bokning påbörjad för ${selectedDate.toDateString()} - Typ: ${bookingType}`)}

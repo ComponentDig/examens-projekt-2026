@@ -84,14 +84,14 @@ function BookingCalender({ selectedDate, onDateChange, bookings }) {
                             }
                         }
                         const isSelected = selectedDate?.toDateString() === date?.toDateString();
-
+                        const finalBgClass = isSelected ? 'bg-secondarycolor shadow-md scale-105 text-textprimary' : bgClass;
                         return (
-                            <div key={i} className={`aspect-square rounded-xl transition-all ${bgClass}`}>
+                            <div key={i} className={`aspect-square rounded-xl transition-all ${finalBgClass}`}>
                                 {date && (
                                     <button
                                         disabled={isBlocked}
                                         onClick={() => onDateChange(date)}
-                                        className={`w-full h-full rounded-xl text-sm font-semibold ${isBlocked ? 'cursor-not-allowed' : ''}`}
+                                        className={`w-full h-full bg-transparent rounded-xl text-sm font-semibold ${isBlocked ? 'cursor-not-allowed opacity-50' : 'hover:bg-black/5'}`}
                                     >
                                         {date.getDate()}
                                     </button>
