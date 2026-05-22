@@ -17,6 +17,7 @@ import AboutUs from './pages/AboutUs';
 import BookingPage from './pages/BookingPage';
 import UserProfilePage from './pages/UserProfilePage';
 import UserProtectedRoute from './components/UserProtectedRoute';
+import UpComing from './pages/UpComing';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<AboutUs />} />
+          <Route path='/upcoming' element={<UpComing />} />
           <Route path='/booking' element={<BookingPage />} />
         </Route>
 
