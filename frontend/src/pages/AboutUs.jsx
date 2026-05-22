@@ -2,12 +2,16 @@ import HeroImage from '../assets/Tuna-vinter.jpg';
 import oldPhoto from '../assets/Tuna-80tal.jpg';
 import hannaPhoto from '../assets/hanna-hlynur.jpg';
 import veronikaPhoto from '../assets/veronika-eskill.jpg';
+import stinaPhoto from '../assets/stina.jpg';
+import klasPhoto from '../assets/klas.jpg';
+import carmenPhoto from '../assets/carmen.jpg';
+import figaroPhoto from '../assets/figaro.jpg';
 
 function AboutUs() {
 
     return (
         <>
-            {/* Hero-section? */}
+            {/* Hero-section */}
             <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
                 <img src={HeroImage} className="absolute inset-0 w-full h-full object-cover" alt="Ovalbanan i vintertid" />
                 <div className='absolute inset-0 bg-black/40'></div>
@@ -24,7 +28,6 @@ function AboutUs() {
                     <div className='space-y-4 mt-6 md:mt-0'>
                         <span className="text-xs uppercase tracking-[0.2em] font-bold text-textprimary block">Vårt ursprung</span>
                         <h2 className="text-2xl md:text-4xl font-secondary text-textprimary">Hur allt började</h2>
-                        {/* 1800-tal - oklart exakt när byn från 1400-1500-tal */}
                         <p className="leading-relaxed text-sm md:text-base text-gray-600">
                             Gården - med anor från 1800-tal - köptes av nuvarande ägare i slutet av 80-talet.
                             Från början var det halvblodshästar som huserade i stallet. Av en slump så kom den första islandshästen i början av 90-talet och kärleken till islandshästarna var funnen.
@@ -34,7 +37,6 @@ function AboutUs() {
                         </p>
                     </div>
                     <div className="w-full rounded-2xl overflow-hidden shadow-xl shadow-textprimary/5 border border-secondarycolor transform hover:scale-[1.01] transition-transform duration-300">
-                        {/* bild från förr? om man kan hitta. kanske byta bilden till flygfoto*/}
                         <img src={oldPhoto} className="w-full h-64 sm:h-80 md:h-100 object-cover" alt="Stallet från 80-talet" />
                     </div>
                 </div>
@@ -51,7 +53,7 @@ function AboutUs() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
                     <div className="bg-[#FEF8EE] p-6 md:p-8 rounded-2xl border border-secondarycolor shadow-md shadow-textprimary/5 flex flex-col items-center text-center">
                         <div className="w-28 h-28 md:w-32 md:h-32 rounded-full mb-4 md:mb-5 overflow-hidden border-4 border-textprimary shadow-sm">
-                            <img src="" className="w-full h-full object-cover bg-gray-200" alt="" />
+                            <img src={stinaPhoto} className="w-full h-full object-cover bg-gray-200" alt="" />
                         </div>
                         <h3 className="font-bold text-lg md:text-xl text-textprimary mb-0.5">Kristina Kristiansson</h3>
                         <p className="text-xs uppercase tracking-wider font-semibold text-textprimary mb-3">Ägare och hästfantast</p>
@@ -60,18 +62,55 @@ function AboutUs() {
                     {/* nästa ägare */}
                     <div className="bg-[#FEF8EE] p-6 md:p-8 rounded-2xl border border-secondarycolor shadow-md shadow-textprimary/5 flex flex-col items-center text-center">
                         <div className="w-28 h-28 md:w-32 md:h-32 rounded-full mb-4 md:mb-5 overflow-hidden border-4 border-textprimary shadow-sm">
-                            <img src="" className="w-full h-full object-cover bg-gray-200" alt="" />
+                            <img src={klasPhoto} className="w-full h-full object-cover bg-gray-200" alt="" />
                         </div>
                         <h3 className="font-bold text-lg md:text-xl text-textprimary mb-0.5">Klas Wallsten</h3>
                         <p className="text-xs uppercase tracking-wider font-semibold text-textprimary mb-3">Ägare och gårdstome</p>
                         <p className="text-xs md:text-sm text-gray-600 leading-relaxed">Klas är gårdens allt-i-allo. Det är han som lagar staket, kör traktorn och ser till att anläggningen är i toppskick</p>
                     </div>
 
-                    {/* hundarna? */}
-                    <div className="mt-8 md:mt-12 text-center max-w-md mx-auto bg-white/60 border border-secondarycolor/60 rounded-xl p-4 text-xs text-gray-500 italic leading-relaxed">
-                        🐾 <strong>Gårdens maskotar:</strong> Glöm inte att hälsa på våra trogna stallhundar som glatt patrullerar stallbacken och håller ordning på foderleveranserna!
+
+                </div>
+
+                {/* hundarna */}
+                <div className="mt-16 mb-20 px-4 flex flex-col items-center justify-center">
+
+                    <div className="text-center mb-8">
+                        <h3 className="font-secondary text-xl md:text-2xl text-textprimary">Gårdens maskotar 🐾</h3>
+                        <p className="text-xs text-gray-500 mt-1 max-w-sm mx-auto">Våra fyrbenta stallvärdar som håller koll på stallbacken</p>
                     </div>
 
+                    <div className="max-w-max mx-auto">
+
+
+                        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 w-full">
+
+                            {/* Hund 1  */}
+                            <div className="bg-white/60 p-6 rounded-xl border border-secondarycolor/60 shadow-md shadow-textprimary/5 flex flex-col items-center text-center w-full sm:w-64">
+                                <div className="w-20 h-20 rounded-full mb-4 overflow-hidden border-2 border-textprimary shadow-sm flex items-center justify-center bg-gray-100 shrink-0">
+                                    <img src={carmenPhoto} className="w-full h-full object-cover min-h-full min-w-full" alt="Figaro" />
+                                </div>
+                                <h4 className="font-bold text-base text-textprimary mb-0.5">Carmen</h4>
+                                <span className="text-[10px] uppercase tracking-wider font-semibold text-textprimary mb-3">Stallets riktiga chef</span>
+                                <p className="text-xs text-gray-600 leading-relaxed italic">
+                                    "Håller stenkoll på alla som kommer, såväl hästar som människor"
+                                </p>
+                            </div>
+
+                            {/* Hund 2  */}
+                            <div className="bg-white/60 p-6 rounded-xl border border-secondarycolor/60 shadow-md shadow-textprimary/5 flex flex-col items-center text-center w-full sm:w-64">
+                                <div className="w-20 h-20 rounded-full mb-4 overflow-hidden border-2 border-textprimary shadow-sm flex items-center justify-center bg-gray-100 shrink-0">
+                                    <img src={figaroPhoto} className="w-full h-full object-cover min-h-full min-w-full" alt="Figaro" />
+                                </div>
+                                <h4 className="font-bold text-base text-textprimary mb-0.5">Figaro</h4>
+                                <span className="text-[10px] uppercase tracking-wider font-semibold text-textprimary mb-3">Chef över staketkontroll</span>
+                                <p className="text-xs text-gray-600 leading-relaxed italic">
+                                    "Patrullerar hagarna med Klas och ser till att inga traktorer startar utan hans godkännande."
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -107,7 +146,50 @@ function AboutUs() {
 
             </section>
 
-            {/* galleri med olika bilder? */}
+            {/* andra bilder ska in senare */}
+            {/* Galleri-sektion */}
+            <section className="py-12 md:py-20 px-4 sm:px-6 max-w-6xl mx-auto font-primary">
+                <div className="text-center mb-10 md:mb-14">
+                    <span className="text-xs uppercase tracking-[0.2em] font-bold text-textprimary">Glimtar från gården</span>
+                    <h2 className="text-2xl md:text-4xl font-secondary text-textprimary mt-1">Galleri</h2>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+                    {/* Bild 1 */}
+                    <div className="group relative h-64 rounded-2xl overflow-hidden border border-secondarycolor shadow-md shadow-textprimary/5 transform hover:scale-[1.02] transition-all duration-300">
+                        <img src={HeroImage} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Stallmiljö" />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span className="text-white text-xs font-medium tracking-wide">Vinter på Tuna</span>
+                        </div>
+                    </div>
+
+                    {/* Bild 2 */}
+                    <div className="group relative h-64 rounded-2xl overflow-hidden border border-secondarycolor shadow-md shadow-textprimary/5 transform hover:scale-[1.02] transition-all duration-300">
+                        <img src={oldPhoto} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Historisk bild" />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span className="text-white text-xs font-medium tracking-wide">Gården förr</span>
+                        </div>
+                    </div>
+
+                    {/* Bild 3 */}
+                    <div className="group relative h-64 rounded-2xl overflow-hidden border border-secondarycolor shadow-md shadow-textprimary/5 transform hover:scale-[1.02] transition-all duration-300">
+                        <img src={veronikaPhoto} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Träning" />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span className="text-white text-xs font-medium tracking-wide">Full fart på banan</span>
+                        </div>
+                    </div>
+
+                    {/* Bild 4 */}
+                    <div className="group relative h-64 rounded-2xl overflow-hidden border border-secondarycolor shadow-md shadow-textprimary/5 transform hover:scale-[1.02] transition-all duration-300">
+                        <img src={hannaPhoto} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Gemenskap" />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span className="text-white text-xs font-medium tracking-wide">Härliga uteritter</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
 
 
         </>
