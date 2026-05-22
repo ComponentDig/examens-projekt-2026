@@ -9,7 +9,7 @@ import figaroPhoto from '../assets/figaro.jpg';
 import hastar from '../assets/hastar.jpg';
 import hastarsova from '../assets/hästarsova.jpg';
 import hastargrind from '../assets/hästargrind.jpg';
-import tunavinter  from '../assets/Tuna-vinter2.jpg';
+import tunavinter from '../assets/Tuna-vinter2.jpg';
 
 function AboutUs() {
 
