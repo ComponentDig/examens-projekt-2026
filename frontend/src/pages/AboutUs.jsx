@@ -6,6 +6,10 @@ import stinaPhoto from '../assets/stina.jpg';
 import klasPhoto from '../assets/klas.jpg';
 import carmenPhoto from '../assets/carmen.jpg';
 import figaroPhoto from '../assets/figaro.jpg';
+import hastar from '../assets/hastar.jpg';
+import hastarsova from '../assets/hästarsova.jpg';
+import hastargrind from '../assets/hästargrind.jpg';
+import tunavinter  from '../assets/Tuna-vinter2.jpg';
 
 function AboutUs() {
 
@@ -158,7 +162,7 @@ function AboutUs() {
 
                     {/* Bild 1 */}
                     <div className="group relative h-64 rounded-2xl overflow-hidden border border-secondarycolor shadow-md shadow-textprimary/5 transform hover:scale-[1.02] transition-all duration-300">
-                        <img src={HeroImage} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Stallmiljö" />
+                        <img src={tunavinter} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Stallmiljö" />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                             <span className="text-white text-xs font-medium tracking-wide">Vinter på Tuna</span>
                         </div>
@@ -166,25 +170,25 @@ function AboutUs() {
 
                     {/* Bild 2 */}
                     <div className="group relative h-64 rounded-2xl overflow-hidden border border-secondarycolor shadow-md shadow-textprimary/5 transform hover:scale-[1.02] transition-all duration-300">
-                        <img src={oldPhoto} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Historisk bild" />
+                        <img src={hastarsova} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Historisk bild" />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                            <span className="text-white text-xs font-medium tracking-wide">Gården förr</span>
+                            <span className="text-white text-xs font-medium tracking-wide">Mätta hästar</span>
                         </div>
                     </div>
 
                     {/* Bild 3 */}
                     <div className="group relative h-64 rounded-2xl overflow-hidden border border-secondarycolor shadow-md shadow-textprimary/5 transform hover:scale-[1.02] transition-all duration-300">
-                        <img src={veronikaPhoto} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Träning" />
+                        <img src={hastargrind} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Träning" />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                            <span className="text-white text-xs font-medium tracking-wide">Full fart på banan</span>
+                            <span className="text-white text-xs font-medium tracking-wide">I väntan på att få komma in</span>
                         </div>
                     </div>
 
                     {/* Bild 4 */}
                     <div className="group relative h-64 rounded-2xl overflow-hidden border border-secondarycolor shadow-md shadow-textprimary/5 transform hover:scale-[1.02] transition-all duration-300">
-                        <img src={hannaPhoto} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Gemenskap" />
+                        <img src={hastar} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Gemenskap" />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                            <span className="text-white text-xs font-medium tracking-wide">Härliga uteritter</span>
+                            <span className="text-white text-xs font-medium tracking-wide">Gräset är godare på andra sidan staketet</span>
                         </div>
                     </div>
 
