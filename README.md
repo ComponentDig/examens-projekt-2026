@@ -76,6 +76,61 @@ I den filen sparas lösenord och anslutningslänkar, det är inget som ska vara 
 
    ```
 
+   <details>
+<summary><b>Steg för steg hur du hämtar din MongoDB-anslutningssträng (MONGODB_URI)</b></summary>
+<br>
+ 
+För att appen ska kunna spara hälsningar och användare behöver den en länk till din databas. Så här hittar du den:
+
+1. Logga in på MongoDB Atlas:<br>
+Gå till mongodb.com och logga in på ditt konto.
+
+2. Skapa/Välj ett Cluster:<br>
+Om du inte har en databas än: Klicka på `"+ Create"` och välj `M0 (Free)`.
+
+Om du redan har en: Se till att du är i fliken `Database` i menyn till vänster.
+
+3. Ge dig själv åtkomst <b>(Viktigt!)</b>
+Innan du hämtar länken måste du se till att din dator får prata med databasen:
+
+* Klicka på `Network Access` i vänstermenyn.
+
+* Klicka på `Add IP Address`.
+
+* Välj `Allow Access From Anywhere` (0.0.0.0/0) för att göra det enkelt under utveckling.     Klicka på Confirm.
+
+* Gå till `Database Access` i vänstermenyn.
+
+* Klicka på `Add New Database User`. Skapa ett användarnamn och ett lösenord (skriv ner dessa!). Ge användaren rollen `Read and write to any database`.
+
+4. Hämta din URI: <br>
+Gå tillbaka till fliken `Database`.
+
+Klicka på den stora knappen `Connect` vid ditt Cluster.
+
+Välj alternativet `Drivers`.
+
+Under punkten `3. Add your connection string into your application code`, ser du en länk som börjar på `mongodb+srv://....` Kopiera denna!
+
+5. Klistra in och ändra:<br>
+Länken du kopierade ser ut ungefär så här:
+`mongodb+srv://<db_username>:<db_password>@cluster0.abcde.mongodb.net/?retryWrites=true&w=majority`
+
+Gör så här i din .env-fil:
+
+Ersätt `<db_username>` med ditt skapade användarnamn om det inte redan står med.
+
+Ersätt `<db_password>` med ditt lösenord för databasanvändaren.
+
+Tips: Om du vill att dina hälsningar ska sparas i en specifik databas, kan du skriva in ett namn (t.ex. hitched) mellan .net/ och ?retryWrites.
+
+Exempel på hur det ska se ut i backend/.env när du är klar:
+```
+MONGODB_URI=mongodb+srv://isabelle:mittlösenord123@cluster0.abcde.mongodb.net/hitched?retryWrites=true&w=majority
+JWT_SECRET=min_hemliga_nyckel
+```
+</details>
+
 I terminalen komm du att se "Server is running on port XXXX" Låt terminalen vara igång. Stäng den inte!
 
 ## Steg 5: Starta frontenden
