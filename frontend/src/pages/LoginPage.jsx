@@ -77,9 +77,14 @@ const LoginPage = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                        <a href="#" className="text-xs text-textprimary/70 hover:text-textprimary transition-colors active:text-textprimary">
-                            Glömt lösenord?
-                        </a>
+                        <div className="text-right">
+                            <Link
+                                to="/forgot-password"
+                                className="text-xs text-textprimary/70 hover:text-textprimary underline transition-colors active:text-textprimary inline-block py-1"
+                            >
+                                Glömt lösenord?
+                            </Link>
+                        </div>
 
                         <button type="submit" className="w-full bg-textprimary text-primarybgcolor font-bold py-3.5 rounded-xl shadow-md shadow-textprimary/20 hover:brightness-95 active:scale-[0.98] transition-all tracking-wider mt-2 text-base sm:text-sm touch-manipulation">Logga in</button>
                     </form>

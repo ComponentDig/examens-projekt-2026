@@ -29,10 +29,8 @@ function BookingPage() {
     };
 
     useEffect(() => {
-
         const loadData = async () => {
             await fetchBookings();
-
         }
 
         loadData();
@@ -45,7 +43,7 @@ function BookingPage() {
         if (bookingType === 'halvdag') {
             mappedStartTime = halfDayType === 'förmiddag' ? 1 : 2;
         } else if (bookingType === 'heldag') {
-            mappedStartTime = 0; // Heldag får värdet 0
+            mappedStartTime = 0;
         }
 
         const bookingData = {
@@ -70,12 +68,12 @@ function BookingPage() {
 
                 fetchBookings();
 
-
                 setName("");
                 setEmail("");
                 setPhone("");
                 setSelectedHour(null);
                 setHalfDayType(null);
+
             } else {
                 alert("Något gick fel vid bokningen. Försök igen.");
             }
@@ -103,8 +101,6 @@ function BookingPage() {
             if (booking.startTime === 2) return 'eftermiddag';
             return booking.startTime;
         });
-
-
 
     // check av vilka timmar som bokas och finns kvar
     const takenHours = isWholeDayBooked ? availableHours : bookings
@@ -178,7 +174,13 @@ function BookingPage() {
                         </div>
 
                         <div className="w-full md:w-2/3 space-y-8">
-                            <BookingCalender selectedDate={selectedDate} onDateChange={setSelectedDate} bookings={bookings} />
+
+                            <BookingCalender
+                                selectedDate={selectedDate}
+                                onDateChange={setSelectedDate}
+                                bookings={bookings}
+                                availableHours={availableHours}
+                            />
 
                             <div className="p-8 rounded-2xl border shadow-md">
                                 <h4>Bokning för: {selectedDate.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' })}</h4>
@@ -189,10 +191,8 @@ function BookingPage() {
                                     </div>
                                 ) : (
                                     <>
-                                        {/* Val av bokningstyp */}
                                         <div className="flex flex-wrap gap-3 mt-4">
                                             {['Timme', 'Halvdag', 'Heldag'].map(type => {
-                                                // Inaktivera Heldag om det redan finns bokade timmar eller halvdagar
                                                 const isTypeDisabled = type === 'Heldag' && (bookedHalfDays.length > 0 || bookings.some(b => b.date.split('T')[0] === formattedSelectedDate && b.bookingType === 'timme'));
 
                                                 return (
@@ -212,7 +212,6 @@ function BookingPage() {
                                             })}
                                         </div>
 
-                                        {/* Under-val för Halvdag (Förmiddag / Eftermiddag) */}
                                         {bookingType === 'halvdag' && (
                                             <div className="flex gap-4 mt-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
                                                 <div className="w-full">
@@ -237,7 +236,6 @@ function BookingPage() {
                                             </div>
                                         )}
 
-                                        {/* Timväljaren */}
                                         {bookingType === 'timme' && (
                                             <div className="grid grid-cols-4 gap-2 mt-4">
                                                 {availableHours.map(hour => {
@@ -258,7 +256,6 @@ function BookingPage() {
                                             </div>
                                         )}
 
-                                        {/* Gå vidare till modalen */}
                                         <button
                                             disabled={
                                                 (bookingType === 'timme' && !selectedHour) ||

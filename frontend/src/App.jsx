@@ -18,6 +18,8 @@ import BookingPage from './pages/BookingPage';
 import UserProfilePage from './pages/UserProfilePage';
 import UserProtectedRoute from './components/UserProtectedRoute';
 import UpComing from './pages/UpComing';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
 
@@ -31,6 +33,8 @@ function App() {
           <Route path='/about' element={<AboutUs />} />
           <Route path='/upcoming' element={<UpComing />} />
           <Route path='/booking' element={<BookingPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Route>
 
         <Route path='/register' element={<RegisterPage />} />
@@ -38,7 +42,7 @@ function App() {
 
         <Route path='/profile' element={
           <UserProtectedRoute>
-            {( user, onLogout ) => <UserProfilePage user={user} onLogout={onLogout} />}
+            {(user, onLogout) => <UserProfilePage user={user} onLogout={onLogout} />}
           </UserProtectedRoute>
         } />
 
