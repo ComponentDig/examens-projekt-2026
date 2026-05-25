@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer';
 
+// kopplingen till mejlservern
+// om uppgifter finns i env så används som annars fallback inställingar
 const getTransporter = async () => {
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
         return nodemailer.createTransport({
@@ -16,7 +18,8 @@ const getTransporter = async () => {
     // genererar ett testkonto - fick det inte att funka med vanlig mejl - Gemini hjälpte till med hur detta ska funka
     console.log("Genererar ett temporärt test-mejl konto...");
     const testAccount = await nodemailer.createTestAccount();
-    
+
+    // returnerar en transporter - testkontots genererade uppgifter
     return nodemailer.createTransport({
         host: testAccount.smtp.host,
         port: testAccount.smtp.port,
@@ -34,8 +37,9 @@ export const sendResetPasswordEmail = async (userEmail, resetToken) => {
     // Hämta transporter
     const transporter = await getTransporter();
 
+    // mejl som skickas till användaren
     const mailOption = {
-        from: `"Hemma På Tuna" <${transporter.options.auth.user}>`, 
+        from: `"Hemma På Tuna" <${transporter.options.auth.user}>`,
         to: userEmail,
         subject: "Återställ ditt lösenord - Hemma På Tuna",
         html: `
@@ -55,7 +59,7 @@ export const sendResetPasswordEmail = async (userEmail, resetToken) => {
     try {
         const info = await transporter.sendMail(mailOption);
         console.log(`Återställningsmejl skickat till ${userEmail}`);
-        
+
         // ett testkonto, får en url där man kan se mailet i webbläsaren
         if (info.to && info.to.includes('ethereal.email') || info.messageId) {
             console.log(`👉 Se mailet live här: ${nodemailer.getTestMessageUrl(info)}`);

@@ -6,19 +6,22 @@ import User from "../models/userSchema.js";
 import { randomBytes } from 'node:crypto';
 const router = express.Router();
 
-// återställningsroute
+// återställningsroute för lösenord
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
 
     try {
+        // check om mejladress finns
         const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(200).json({ message: "En återställningslänk har skickats om adressen finns registrerad." });
         }
 
+        // genererar en slumpad engångstoken
         const resetToken = randomBytes(20).toString('hex');
 
+        // sparar token - en tid på 1 timme innan den går ut
         user.resetPasswordToken = resetToken;
         user.resetPasswordExpires = Date.now() + 3600000;
         await user.save();
@@ -33,6 +36,7 @@ router.post('/forgot-password', async (req, res) => {
     }
 });
 
+// route för när man klickat på återställingslänken
 router.post('/reset-password/:token', async (req, res) => {
     const { token } = req.params;
     const { password } = req.body;
@@ -48,7 +52,7 @@ router.post('/reset-password/:token', async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: "Länken är ogiltig eller har löpt ut." });
         }
-    
+
         user.password = password;
 
         user.resetPasswordToken = undefined;
@@ -65,15 +69,13 @@ router.post('/reset-password/:token', async (req, res) => {
 });
 
 // Public routes
-router.post('/register', authController.registerUser);
 router.post('/login', authController.loginUser);
 
 
-// Protected routes
+// Protected routes för användare som kan logga in
 router.get('/profile', protect, authController.getProfile);
 
 // Admin routes
-// router.post('/admin-create', protect, admin, authController.adminCreateUser);
 router.get('/users', protect, admin, authController.getAllUsers)
 router.post('/invite', authController.createInvite);
 router.get('/verify-invite/:token', authController.verifyInvite);
