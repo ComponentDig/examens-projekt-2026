@@ -16,7 +16,6 @@ const generateToken = (user) => {
         throw new Error("Fel, JWT_SECRET");
     }
 
-
     return jwt.sign(
         { id: user._id, email: user.email, role: user.role },
         secret,
@@ -26,48 +25,12 @@ const generateToken = (user) => {
 
 class authController {
 
-    // registrera användare - ta bort eller behålla?
-    static async registerUser(req, res) {
-        try {
-            const { firstName, lastName, email, password, horses } = req.body;
-
-            // kollar om användare redan finns
-            const userExists = await User.findOne({ email });
-            if (userExists) {
-                return res.status(400).json({ message: "Användare finns redan" });
-            }
-
-            // skapa ny användare
-            const newUser = await User.create({
-                firstName,
-                lastName,
-                email,
-                password,
-                horses
-            });
-
-            res.status(201).json({
-                message: "Registrering lyckades",
-                token: generateToken(newUser),
-                user: {
-                    id: newUser._id,
-                    firstName: newUser.firstName,
-                    email: newUser.email
-                }
-            });
-
-        } catch (error) {
-            res.status(500).json({ message: "Ett fel uppstod vid registrering", error: error.message });
-        }
-    }
-
-
     // logga in
     static async loginUser(req, res) {
         try {
             const { email, password } = req.body;
 
-            // hitta användare
+            // hitta användaren
             const user = await User.findOne({ email }).select('+password');
 
             // koll att användare och lösen matchar - matchPassword in userSchema
@@ -91,10 +54,9 @@ class authController {
         }
     }
 
-    // hämta profile
+    // hämta profil för inloggad användare
     static async getProfile(req, res) {
         try {
-            // req.user från authMiddleware
             const user = await User.findById(req.user.id);
 
             if (!user) {
@@ -107,9 +69,9 @@ class authController {
         }
     }
 
+    // hämtar alla användare - admin ska ha en lista på alla användare för att kunna ändra/ta bort
     static async getAllUsers(req, res) {
         try {
-            // hämtar alla användare
             const users = await User.find({}, 'firstName lastName role isActive');
 
             res.status(200).json(users);
