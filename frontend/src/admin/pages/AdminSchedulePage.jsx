@@ -117,28 +117,34 @@ const AdminSchedulePage = () => {
 
     return (
         <>
-            <div className="p-8">
-                <h1 className="text-2xl font-bold mb-6">Generera Schema</h1>
+            <div className="p-4 sm:p-8 min-h-screen bg-slate-50/50">
 
-                <div className="p-6 rounded shadow-md max-w-md">
-                    <div className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium mb-1">År</label>
-                            <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} className="w-full p-2 border rounded" />
+                <div className="max-w-4xl mx-auto mb-6">
+                    <h1 className="text-xl sm:text-2xl font-bold text-sky-950">Generera Schema</h1>
+                    <p className="text-xs text-slate-500 mt-1">Välj period för att granska eller generera nya arbetspass.</p>
+                </div>
+
+                <div className="max-w-4xl mx-auto p-4 sm:p-6 bg-white border border-sky-100 rounded-2xl shadow-xs mb-8">
+                    <div className="flex flex-col md:flex-row md:items-end gap-4">
+                        <div className="flex-1 grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 ml-1">År</label>
+                                <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} className="w-full border border-sky-200 p-2.5 rounded-xl text-sm bg-white text-slate-700 focus:outline-none focus:border-sky-900 focus:ring-2 focus:ring-sky-900/10 transition-all font-medium" />
+                            </div>
+
+                            <div>
+                                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 ml-1">Månad</label>
+                                <select value={month} onChange={(e) => setMonth(Number(e.target.value))} className="w-full border border-sky-200 p-2.5 rounded-xl text-sm bg-white text-slate-700 focus:outline-none focus:border-sky-900 focus:ring-2 focus:ring-sky-900/10 transition-all font-medium">
+                                    {Array.from({ length: 12 }, (__, i) => (
+                                        <option key={i + 1} value={i + 1}>
+                                            {new Date(0, i).toLocaleDateString('sv-SE', { month: 'long' })}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium mb-1">Månad</label>
-                            <select value={month} onChange={(e) => setMonth(Number(e.target.value))} className="w-full p-2 border rounded">
-                                {Array.from({ length: 12 }, (__, i) => (
-                                    <option key={i + 1} value={i + 1}>
-                                        {new Date(0, i).toLocaleDateString('sv-SE', { month: 'long' })}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <button onClick={handleGenerate} disabled={loading} className="w-full p-3 font-bold rounded">
+                        <button onClick={handleGenerate} disabled={loading} className="w-full md:w-auto md:px-6 bg-sky-950 hover:bg-sky-900 text-white font-bold h-10.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-sm active:scale-[0.99] shrink-0">
                             {loading ? 'Genererar....' : 'Skapa Schema'}
                         </button>
                     </div>
