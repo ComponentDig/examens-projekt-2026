@@ -16,8 +16,8 @@ const server = express();
 
 // middleware
 server.use(cors({
-    // origin: "https://hemma-pa-tuna.vercel.app",
-    // credentials: true
+    origin: "https://hemma-pa-tuna.vercel.app",
+    credentials: true
 }));
 server.use(express.json());
 
