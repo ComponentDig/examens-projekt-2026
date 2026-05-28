@@ -76,7 +76,7 @@ const AdminSchedulePage = () => {
             const data = await response.json();
 
             if (response.ok) {
-                setMessage({ type: 'sucsess', text: data.message });
+                setMessage({ type: 'success', text: data.message });
                 fetchSchedule();
             } else {
                 setMessage({ type: 'error', text: data.message || 'Något gick fel' });

@@ -8,6 +8,6 @@ router.post('/generate', protect, admin, triggerScheduleGenerator);
 
 router.get('/', protect, getScheduleController);
 
-router.put('/:id', updateScheduleEntry);
+router.put('/:id', protect, updateScheduleEntry);
 
 export default router;
