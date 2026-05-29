@@ -77,7 +77,7 @@ router.get('/profile', protect, authController.getProfile);
 
 // Admin routes
 router.get('/users', protect, admin, authController.getAllUsers)
-router.post('/invite', admin, protect, authController.createInvite);
+router.post('/invite',protect ,admin, authController.createInvite);
 router.get('/verify-invite/:token', authController.verifyInvite);
 router.post('/complete-registration', authController.completeRegistration);
 
